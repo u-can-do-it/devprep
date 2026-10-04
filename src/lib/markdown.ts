@@ -5,6 +5,7 @@ import css from 'highlight.js/lib/languages/css';
 import dockerfile from 'highlight.js/lib/languages/dockerfile';
 import graphql from 'highlight.js/lib/languages/graphql';
 import http from 'highlight.js/lib/languages/http';
+import ini from 'highlight.js/lib/languages/ini';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
 import lua from 'highlight.js/lib/languages/lua';
@@ -16,7 +17,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
 import yaml from 'highlight.js/lib/languages/yaml';
 
-const languages = { bash, css, dockerfile, graphql, http, javascript, json, lua, nginx, plaintext, python, sql, typescript, xml, yaml };
+const languages = { bash, css, dockerfile, graphql, http, ini, javascript, json, lua, nginx, plaintext, python, sql, typescript, xml, yaml };
 for (const [name, lang] of Object.entries(languages)) hljs.registerLanguage(name, lang);
 hljs.registerAliases(['jsx'], { languageName: 'javascript' });
 hljs.registerAliases(['tsx'], { languageName: 'typescript' });

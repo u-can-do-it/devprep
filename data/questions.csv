@@ -149,3 +149,293 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 148,"Tell me about a mistake or failure you made and what you learned from it.",junior,hr,3,4,4,4,2026-10-04,
 149,"How do you handle disagreement with colleagues about a technical decision?",senior,hr,0,2,4,4,2026-10-04,
 150,"What are your salary expectations, and what questions do you have for us?",junior,hr,4,4,4,4,2026-10-04,
+151,"What's the difference between `call`, `apply` and `bind`? Implement a simple `bind`.",mid,js,3,4,3,1,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+152,"How do you reliably check the type of a value, and what are the pitfalls of `typeof` and `instanceof`?",junior,js,4,3,1,0,2026-10-04,
+153,"Why does `0.1 + 0.2 === 0.3` return `false`? How do numbers work in JavaScript, and when do you need `BigInt`?",junior,js,3,3,1,0,2026-10-04,
+154,"How do optional chaining (`?.`) and nullish coalescing (`??`) work, and how is `??` different from `||`?",junior,js,4,3,1,0,2026-10-04,
+155,"What's the difference between spread and rest syntax, and how does destructuring with default values work?",junior,js,4,3,1,0,2026-10-04,
+156,"When would you use a `Map` or `Set` instead of a plain object or array?",junior,js,3,3,2,0,2026-10-04,
+157,"What are Symbols in JavaScript, and what are well-known symbols used for?",mid,js,1,3,2,1,2026-10-04,
+158,"What are property descriptors, getters and setters, and what does `Object.defineProperty` let you control?",mid,js,1,3,2,1,2026-10-04,
+159,"What's the difference between `const` and `Object.freeze`? How do you make an object truly immutable?",junior,js,4,3,1,0,2026-10-04,
+160,"What is an IIFE and the module pattern, why were they used, and what replaced them?",junior,js,2,2,1,0,2026-10-04,
+161,"What does strict mode (`'use strict'`) change, and when is it enabled automatically?",mid,js,2,2,1,0,2026-10-04,
+162,"Which array methods mutate the original array, and what are the non-mutating alternatives like `toSorted`?",junior,js,4,3,1,0,2026-10-04,
+163,"Predict the console output of code that mixes `setTimeout`, Promises, `queueMicrotask` and `async`/`await`.",mid,js,2,4,3,2,2026-10-04,
+164,"What are pure functions and side effects, and why do they matter for testing and UI frameworks?",mid,js,3,3,2,1,2026-10-04,
+165,"What are private class fields (`#field`), and how do they differ from TypeScript's `private` keyword?",mid,js|typescript,1,3,2,1,2026-10-04,
+166,"Implement a `deepEqual(a, b)` function. Which edge cases do you need to handle?",senior,js,0,2,3,2,2026-10-04,
+167,"Implement a `memoize` function. What are its pitfalls and how do you limit cache growth?",mid,js|performance,2,3,3,1,2026-10-04,
+168,"Implement a function that runs async tasks with a concurrency limit and keeps the results in order.",senior,js,0,2,4,3,2026-10-04,
+169,"What are async iterators and `for await...of`, and when would you use an async generator?",senior,js,0,2,3,2,2026-10-04,
+170,"Implement a simplified `Promise` class that supports `then` chaining. What makes it spec-compliant?",master,js,0,1,3,3,2026-10-04,
+171,"How do you create custom error types in JavaScript, and what is the `cause` option for?",mid,js,1,3,2,1,2026-10-04,
+172,"What are the problems with the `Date` object, and how does the Temporal API solve them?",mid,js,1,2,2,1,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal
+173,"Explain regular expression flags, capture groups and lookarounds. What is ReDoS and how do you prevent it?",senior,js|security,1,2,3,2,2026-10-04,
+174,"How does V8 optimize JavaScript (hidden classes, inline caches, JIT tiers), and what code patterns cause deoptimization?",master,js|performance,0,1,2,3,2026-10-04,
+175,"Compare `for`, `for...of`, `for...in`, `forEach` and `Object.entries` for iterating arrays and objects.",junior,js,4,3,1,0,2026-10-04,
+176,"Should you use an `enum` or a union of string literals in TypeScript? What are the trade-offs?",junior,typescript,3,4,3,1,2026-10-04,
+177,"What does `as const` do in TypeScript, and how does it relate to literal type widening?",junior,typescript,3,3,2,1,2026-10-04,
+178,"How do `keyof`, `typeof` (in type position) and indexed access types (`T[K]`) work together?",mid,typescript,2,4,3,1,2026-10-04,
+179,"How do `readonly`, `Readonly<T>` and `ReadonlyArray<T>` work, and how do they compare to `Object.freeze`?",junior,typescript,3,3,1,0,2026-10-04,
+180,"What does `strict: true` enable in `tsconfig.json`, and which extra strictness flags are worth turning on?",mid,typescript,1,3,3,2,2026-10-04,https://www.typescriptlang.org/tsconfig/#strict
+181,"How do function overloads work in TypeScript, and when are they better than unions or generics?",mid,typescript,1,3,2,1,2026-10-04,
+182,"TypeScript types are erased at runtime. How do you safely type and validate external data such as API responses?",senior,typescript,1,3,4,3,2026-10-04,
+183,"What are template literal types, and what can you build with them?",senior,typescript,0,2,3,3,2026-10-04,
+184,"What is declaration merging and module augmentation in TypeScript, and how do you write a `.d.ts` file?",senior,typescript,0,2,3,3,2026-10-04,https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+185,"Explain covariance, contravariance and bivariance in TypeScript. What does `strictFunctionTypes` change?",master,typescript,0,0,2,4,2026-10-04,
+186,"How do generic parameter defaults, `const` type parameters and `NoInfer` control type inference?",master,typescript,0,1,2,3,2026-10-04,
+187,"What are type-only imports (`import type`), and why do `isolatedModules` and `verbatimModuleSyntax` matter?",mid,typescript,1,3,2,1,2026-10-04,
+188,"How do the standard (TC39) decorators in TypeScript 5+ differ from `experimentalDecorators`?",mid,typescript,1,2,2,1,2026-10-04,
+189,"How does module resolution work in TypeScript (`nodenext` vs `bundler`), and why do you sometimes write `.js` extensions in TS imports?",senior,typescript|node,0,2,3,3,2026-10-04,https://www.typescriptlang.org/docs/handbook/modules/theory.html
+190,"What changed with TypeScript 7's native (Go) compiler, and how would you migrate a large codebase to it?",master,typescript|performance,0,1,3,3,2026-10-04,
+191,"What does JSX compile to, and why must component names start with a capital letter?",junior,react|js,4,3,1,0,2026-10-04,
+192,"What's the difference between a React component, a React element and a React node?",junior,react,3,3,2,0,2026-10-04,
+193,"What's the difference between props and state in React?",junior,react,4,3,1,0,2026-10-04,https://react.dev/learn/passing-props-to-a-component
+194,"What does ""one-way data flow"" mean in React, and how does a child component change its parent's data?",junior,react,4,3,1,0,2026-10-04,
+195,"How do you render lists and conditional content in JSX, and why can `{items.length && <List />}` render a stray `0`?",junior,react,4,3,1,0,2026-10-04,
+196,"What are Fragments, and when do you need `<Fragment key>` instead of `<>`?",junior,react|html,3,2,1,0,2026-10-04,https://react.dev/reference/react/Fragment
+197,"What is `useRef` for, and how is a ref different from state?",junior,react,4,4,2,0,2026-10-04,https://react.dev/reference/react/useRef
+198,"What is prop drilling, and how can component composition solve it without Context?",junior,react,4,3,2,0,2026-10-04,
+199,"Why shouldn't you mutate state directly, and how do you update objects and arrays in state?",junior,react|js,4,3,1,0,2026-10-04,https://react.dev/learn/updating-objects-in-state
+200,"What does `<StrictMode>` do, and why do components and effects run twice in development?",junior,react,3,3,2,1,2026-10-04,https://react.dev/reference/react/StrictMode
+201,"When should you use `useLayoutEffect` instead of `useEffect`?",mid,react,2,4,3,1,2026-10-04,https://react.dev/reference/react/useLayoutEffect
+202,"When would you choose `useReducer` over `useState`?",mid,react,2,4,3,1,2026-10-04,https://react.dev/reference/react/useReducer
+203,"How do you build accessible components in React, and what problem does `useId` solve?",mid,react|accessibility,1,3,3,2,2026-10-04,https://react.dev/reference/react/useId
+204,"What are portals in React, when do you need them, and how do events behave inside them?",mid,react,2,3,2,1,2026-10-04,https://react.dev/reference/react-dom/createPortal
+205,"What are error boundaries, which errors don't they catch, and why are they still class components?",mid,react,2,4,3,1,2026-10-04,
+206,"How do refs work in React 19 now that `ref` is a regular prop, and when do you still need `useImperativeHandle`?",mid,react,1,3,3,1,2026-10-04,
+207,"How does React decide whether to keep or reset a component's state, and how can you force a reset?",mid,react,1,3,3,2,2026-10-04,https://react.dev/learn/preserving-and-resetting-state
+208,"How do you test React components with React Testing Library, and why prefer queries by role?",mid,react|testing,2,4,3,2,2026-10-04,https://testing-library.com/docs/queries/about/#priority
+209,"How do you type props, `children`, and event handlers for React components in TypeScript?",mid,react|typescript,2,4,3,1,2026-10-04,
+210,"What are higher-order components and render props, and why have hooks replaced most of them?",mid,react|architecture,2,3,3,1,2026-10-04,
+211,"What are common misuses of `useEffect`, and what should you do instead?",mid,react,1,4,4,2,2026-10-04,https://react.dev/learn/you-might-not-need-an-effect
+212,"What's the difference between server state and client state, and why use a library like TanStack Query for the former?",mid,react|architecture,1,3,4,2,2026-10-04,
+213,"How would you build and validate a form in React in 2026 — controlled state, `<form action>` with `FormData`, or React Hook Form?",mid,react,2,4,3,1,2026-10-04,
+214,"What is hydration, and what causes a hydration mismatch error?",senior,react,0,2,4,3,2026-10-04,https://react.dev/reference/react-dom/client/hydrateRoot
+215,"What is the React Compiler, and what does it change about how you write memoization?",senior,react|performance,0,2,4,3,2026-10-04,https://react.dev/learn/react-compiler
+216,"How do you find out why a React component re-renders, and how do you fix unnecessary re-renders?",senior,react|performance,0,3,4,3,2026-10-04,https://react.dev/reference/react/Profiler
+217,"Does `React.memo` stop Context consumers from re-rendering? How do you keep a frequently changing Context from re-rendering the whole tree?",senior,react|performance,0,2,4,3,2026-10-04,
+218,"What is list virtualization (windowing), when do you need it, and what are its downsides?",senior,react|performance,0,2,3,3,2026-10-04,
+219,"How does Suspense work for data fetching and streaming SSR, and where should you place Suspense boundaries?",senior,react|performance,0,2,4,3,2026-10-04,https://react.dev/reference/react/Suspense
+220,"How would you design a reusable component API using the compound components pattern?",senior,react|architecture,0,2,4,3,2026-10-04,
+221,"What problem does `useEffectEvent` solve, and what are its rules?",senior,react,0,2,3,2,2026-10-04,https://react.dev/reference/react/useEffectEvent
+222,"What is `useSyncExternalStore`, what is tearing, and how would you build a minimal global store with it?",master,react|performance,0,0,2,4,2026-10-04,https://react.dev/reference/react/useSyncExternalStore
+223,"Explain React's render and commit phases and the Fiber architecture. Why must rendering be pure?",master,react,0,1,3,4,2026-10-04,
+224,"How would you architect a React dashboard that receives hundreds of real-time updates per second without freezing the UI?",master,react|performance|architecture,0,0,3,4,2026-10-04,
+225,"How would you build a type-safe polymorphic component (an `as` prop or `asChild`) in React with TypeScript?",master,react|typescript|architecture,0,0,2,3,2026-10-04,
+226,"What do the special files `page`, `layout`, `loading`, `error` and `not-found` do in the Next.js App Router?",junior,nextjs,4,4,2,1,2026-10-04,
+227,"How do you create dynamic routes in Next.js, and what's the difference between `[slug]`, `[...slug]` and `[[...slug]]`?",junior,nextjs,4,3,1,0,2026-10-04,
+228,"What does the Next.js `<Link>` component give you over a plain `<a>` tag, and how does prefetching work?",junior,nextjs|performance,4,3,2,1,2026-10-04,https://nextjs.org/docs/app/api-reference/components/link
+229,"How do environment variables work in Next.js, and what does the `NEXT_PUBLIC_` prefix do?",junior,nextjs|fe-security,4,4,2,1,2026-10-04,
+230,"What are the benefits of `next/image` over a plain `<img>` tag?",junior,nextjs|performance,4,3,2,1,2026-10-04,https://nextjs.org/docs/app/api-reference/components/image
+231,"How do you set page titles, descriptions and Open Graph tags in the App Router?",junior,nextjs|html,3,3,2,1,2026-10-04,https://nextjs.org/docs/app/getting-started/metadata-and-og-images
+232,"What are route groups `(folder)` and private folders `_folder` in the App Router, and why would you use them?",junior,nextjs,3,3,1,0,2026-10-04,
+233,"What's the difference between `layout.tsx` and `template.tsx` in Next.js?",mid,nextjs|react,1,3,2,1,2026-10-04,
+234,"What does `generateStaticParams` do, and what happens when a user requests a param it didn't return?",mid,nextjs|performance,2,4,3,1,2026-10-04,https://nextjs.org/docs/app/api-reference/functions/generate-static-params
+235,"What exactly does `loading.tsx` do in Next.js, and what are its limitations compared with manual `<Suspense>` boundaries?",mid,nextjs|performance,1,4,3,1,2026-10-04,
+236,"When would you use a Route Handler (`route.ts`) instead of a Server Action?",mid,nextjs|rest,1,4,3,2,2026-10-04,https://nextjs.org/docs/app/getting-started/route-handlers
+237,"What is `proxy.ts` (formerly `middleware.ts`) in Next.js, what is it good for, and what shouldn't you do in it?",mid,nextjs|be-security,1,4,3,2,2026-10-04,https://nextjs.org/docs/app/api-reference/file-conventions/proxy
+238,"How do you handle errors in the App Router, and how do `error.tsx`, `global-error.tsx`, `notFound()` and `redirect()` fit together?",mid,nextjs|react,1,4,3,1,2026-10-04,https://nextjs.org/docs/app/api-reference/file-conventions/error
+239,"What do `useRouter`, `usePathname` and `useSearchParams` do, and why does `useSearchParams` often need a `<Suspense>` boundary?",mid,nextjs|react,2,3,2,1,2026-10-04,https://nextjs.org/docs/app/api-reference/functions/use-search-params
+240,"How do `next/font` and `next/script` improve performance, and which loading strategies does `next/script` offer?",mid,nextjs|performance,1,3,2,1,2026-10-04,
+241,"How would you implement internationalized (i18n) routing in the Next.js App Router?",mid,nextjs,1,3,3,2,2026-10-04,
+242,"How do you fetch data in Server Components without creating request waterfalls, and how does request deduplication work?",senior,nextjs|react|performance,0,3,4,3,2026-10-04,
+243,"What are parallel routes and intercepting routes, and how would you build a modal that has its own shareable URL?",senior,nextjs,0,2,4,3,2026-10-04,https://nextjs.org/docs/app/api-reference/file-conventions/parallel-routes
+244,"How do you prevent secrets and private data from leaking to the client in a Next.js app?",senior,nextjs|fe-security|be-security,0,2,4,4,2026-10-04,https://nextjs.org/docs/app/guides/data-security
+245,"How would you implement authentication in a Next.js App Router app, and where should the auth checks live?",senior,nextjs|auth|be-security,0,3,4,3,2026-10-04,
+246,"A Next.js app feels slow. How would you diagnose and improve its performance?",senior,nextjs|performance,0,2,4,3,2026-10-04,
+247,"When would you NOT choose Next.js for a project, and what are the alternatives?",senior,nextjs|architecture,0,2,3,4,2026-10-04,
+248,"Explain Partial Prerendering with Cache Components: how is the static shell built, and what forces you to add `<Suspense>` or `'use cache'`?",master,nextjs|caching|performance,0,1,3,4,2026-10-04,https://nextjs.org/docs/app/getting-started/caching
+249,"Walk through what happens during a client-side navigation in the App Router, from `<Link>` click to updated UI.",master,nextjs|react|performance,0,1,3,4,2026-10-04,
+250,"You need to self-host Next.js on Kubernetes with several replicas. What do you have to take care of?",master,nextjs|docker|cloud,0,1,3,4,2026-10-04,https://nextjs.org/docs/app/guides/self-hosting
+251,"What does `<!DOCTYPE html>` do, and what are quirks mode and standards mode?",junior,html|browser,3,2,1,0,2026-10-04,
+252,"What are `data-*` attributes, how do you read them, and when are they a good or bad choice?",junior,html|js,3,2,1,0,2026-10-04,
+253,"How do you build an accessible form: labels, input types, `autocomplete` and grouping?",junior,html|accessibility,4,3,2,0,2026-10-04,
+254,"How do `srcset`, `sizes` and `<picture>` work for responsive images?",mid,html|performance,2,4,3,1,2026-10-04,
+255,"When would you use the native `<dialog>` element versus the `popover` attribute?",mid,html|accessibility,1,3,3,2,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/Popover_API
+256,"How can an `<iframe>` communicate with its parent page safely, and what do the `sandbox` and `allow` attributes do?",mid,html|browser|fe-security,1,3,3,2,2026-10-04,
+257,"How would you prepare a page for multiple languages and right-to-left scripts?",mid,html|css,1,2,2,1,2026-10-04,
+258,"When would you use `<canvas>` versus SVG?",mid,html|performance,1,3,2,1,2026-10-04,
+259,"What are Web Components, and how do Custom Elements, Shadow DOM and `<template>` fit together?",senior,html|browser|js,0,2,3,3,2026-10-04,
+260,"What's the difference between `display: block`, `inline` and `inline-block`?",junior,css|html,4,3,1,0,2026-10-04,
+261,"Explain the `position` values `static`, `relative`, `absolute`, `fixed` and `sticky`. Why might `sticky` not work?",junior,css,4,3,1,0,2026-10-04,
+262,"What are the ways to center an element horizontally and vertically in CSS?",junior,css,4,3,1,0,2026-10-04,
+263,"What's the difference between pseudo-classes and pseudo-elements, and can you give examples of each?",junior,css,3,3,1,0,2026-10-04,
+264,"Compare CSS units `px`, `em`, `rem`, `%`, `vh`/`dvh` and `ch`. When does `clamp()` help?",junior,css,4,3,2,0,2026-10-04,
+265,"What do `flex-grow`, `flex-shrink` and `flex-basis` do, and what does `flex: 1` actually mean?",junior,css,3,3,2,0,2026-10-04,
+266,"How do you build a responsive grid without media queries, and what's the difference between `auto-fill` and `auto-fit`?",mid,css,2,3,2,1,2026-10-04,
+267,"How do CSS custom properties differ from Sass variables, and do you still need a preprocessor in 2026?",mid,css,2,4,3,1,2026-10-04,
+268,"What's the difference between CSS transitions and `@keyframes` animations, and which properties are cheap to animate?",mid,css|performance,2,3,3,1,2026-10-04,
+269,"How do you implement dark mode and respect reduced-motion preferences in CSS?",mid,css|accessibility,1,3,3,1,2026-10-04,
+270,"What do `:has()`, `:is()` and `:where()` do, and how do they affect specificity?",senior,css,1,3,3,2,2026-10-04,
+271,"Compare BEM, CSS Modules, utility-first CSS (Tailwind) and CSS-in-JS. How would you choose for a React app?",senior,css|architecture|react,1,3,4,3,2026-10-04,
+272,"What is CSS subgrid and what problem does it solve?",senior,css,0,2,3,2,2026-10-04,
+273,"How does the View Transitions API work for same-document and cross-document navigations?",senior,css|browser,0,2,3,2,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+274,"How would you structure a large CSS codebase with cascade layers (`@layer`) and `@scope`?",master,css|architecture,0,1,3,3,2026-10-04,
+275,"What problem does CSS anchor positioning solve, and how does it compare to JavaScript positioning libraries?",master,css,0,1,2,3,2026-10-04,
+276,"What is the same-origin policy, what counts as an origin, and what does it actually block?",junior,browser|fe-security,3,3,2,1,2026-10-04,
+277,"How does client-side routing work with the History API, and what pitfalls should you handle?",mid,browser|js,1,3,2,1,2026-10-04,
+278,"What are `IntersectionObserver`, `ResizeObserver` and `MutationObserver` used for, and why are they better than polling?",mid,browser|performance,2,3,3,1,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+279,"Where does `requestAnimationFrame` run in a browser frame, and how does it compare to `setTimeout` and `requestIdleCallback`?",senior,browser|js|performance,0,2,3,3,2026-10-04,
+280,"What is a Service Worker, what is its lifecycle, and which caching strategies would you use for an offline-capable PWA?",senior,browser|caching,0,2,4,3,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
+281,"When would you move work to a Web Worker, how do you pass data efficiently, and what does `SharedArrayBuffer` require?",master,browser|performance|js,0,1,3,4,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
+282,"How do you hide content visually but keep it available to screen readers, and how do `display: none`, `visibility: hidden`, `aria-hidden` and an `sr-only` class differ?",junior,accessibility|css,3,3,2,0,2026-10-04,
+283,"How do screen reader users navigate a page, and how do headings, landmarks and skip links help them?",junior,accessibility|html,3,3,2,1,2026-10-04,
+284,"How do you write good `alt` text, and when should `alt` be empty?",junior,accessibility|html,3,3,1,0,2026-10-04,
+285,"What is WCAG, what do levels A, AA and AAA mean, and what are the color contrast requirements?",mid,accessibility,2,3,3,2,2026-10-04,https://www.w3.org/WAI/WCAG22/quickref/
+286,"How do you test a web app for accessibility? What can automated tools catch and what can't they?",mid,accessibility|testing,1,3,3,2,2026-10-04,
+287,"How do you make form validation errors and other dynamic updates accessible?",senior,accessibility|html,0,2,3,2,2026-10-04,
+288,"Explain `preconnect`, `dns-prefetch`, `preload`, `modulepreload` and `prefetch`. When would you use each?",mid,performance|browser|html,1,3,3,2,2026-10-04,
+289,"How do web fonts affect performance and layout shift, and how do you load them well?",senior,performance|css,0,2,3,3,2026-10-04,
+290,"What do the CSS `contain` and `content-visibility` properties do, and when do they improve rendering performance?",master,css|performance,0,1,2,3,2026-10-04,
+291,"What's the difference between `dependencies`, `devDependencies` and `peerDependencies` in `package.json`?",junior,node,4,3,1,0,2026-10-04,https://docs.npmjs.com/cli/configuring-npm/package-json
+292,"How do semver ranges like `^1.2.3` and `~1.2.3` work, and why should you commit a lockfile?",junior,node|ci-cd,4,3,2,0,2026-10-04,
+293,"What is `EventEmitter` in Node.js and how do you use it?",junior,js|node,3,3,1,0,2026-10-04,https://nodejs.org/api/events.html
+294,"What's the difference between `fs.readFileSync`, callback-based `fs.readFile` and `fs/promises`, and when is the sync API acceptable?",junior,node|performance,4,3,1,0,2026-10-04,
+295,"How would you build a simple HTTP server with only the built-in `node:http` module, and what do frameworks add on top?",junior,node|rest,3,3,1,0,2026-10-04,https://nodejs.org/api/http.html
+296,"How does `require()` resolve a module path, and how does module caching work?",mid,node,1,3,3,1,2026-10-04,https://nodejs.org/api/modules.html
+297,"What is a `Buffer` in Node.js, and what problems can character encodings cause?",mid,node,2,3,2,1,2026-10-04,https://nodejs.org/api/buffer.html
+298,"What does Node's built-in test runner (`node:test`) offer, and when would you choose it over Jest or Vitest?",mid,node|testing,1,3,2,1,2026-10-04,https://nodejs.org/api/test.html
+299,"Which modern Node.js features reduce the need for extra tooling (`--watch`, `--env-file`, native `fetch`, TypeScript type stripping)?",mid,node|typescript,2,3,3,1,2026-10-04,https://nodejs.org/api/typescript.html
+300,"How do you cancel or time out async operations in Node.js with `AbortController` and `AbortSignal`?",mid,js|node,1,3,3,1,2026-10-04,
+301,"How do you implement graceful shutdown of a Node.js HTTP service running in a container?",senior,node|docker,0,2,4,3,2026-10-04,
+302,"What is `AsyncLocalStorage` and how would you use it to carry a request ID through your logs?",senior,node|architecture,0,2,3,3,2026-10-04,https://nodejs.org/api/async_context.html
+303,"How do you reduce npm supply-chain risk in a Node.js project, and where does the Node permission model fit in?",senior,node|security|be-security,0,2,4,3,2026-10-04,https://nodejs.org/api/permissions.html
+304,"How would you set up logging, metrics and tracing for a Node.js service in production?",senior,node|architecture,0,2,4,3,2026-10-04,
+305,"How would you accept multi-gigabyte file uploads in a Node.js API and store them in S3 without exhausting memory?",master,node|performance|cloud,0,1,3,4,2026-10-04,
+306,"A Node.js API has good average latency but terrible p99 latency. How do you find and fix the cause?",master,node|performance,0,1,3,4,2026-10-04,
+307,"What's the difference between `is` and `==` in Python?",junior,python,4,3,1,0,2026-10-04,
+308,"What are list, dict and set comprehensions, and how do they differ from generator expressions?",junior,python|performance,4,3,1,0,2026-10-04,
+309,"What's the difference between a shallow copy and a deep copy in Python?",junior,python,4,3,1,0,2026-10-04,https://docs.python.org/3/library/copy.html
+310,"What's the difference between instance methods, `@classmethod`, `@staticmethod` and `@property`?",junior,python,4,3,1,0,2026-10-04,
+311,"How does exception handling work in Python (`try`/`except`/`else`/`finally`, custom exceptions, `raise ... from`)?",junior,python,4,3,2,0,2026-10-04,https://docs.python.org/3/tutorial/errors.html
+312,"Explain Python's LEGB scope rule, `global` vs `nonlocal`, and the late-binding closure gotcha.",mid,python,2,4,2,1,2026-10-04,
+313,"What are dunder (magic) methods in Python? Which ones would you implement for a value object?",mid,python,2,4,2,1,2026-10-04,https://docs.python.org/3/reference/datamodel.html
+314,"When would you use an abstract base class (`abc.ABC`) vs a `typing.Protocol`?",mid,python|architecture,1,3,3,1,2026-10-04,
+315,"How do pytest fixtures work, and how do you use scopes, `yield` teardown and `conftest.py`?",mid,python|testing,2,4,3,1,2026-10-04,https://docs.pytest.org/en/stable/how-to/fixtures.html
+316,"What do `functools.lru_cache`/`cache`, `partial` and `wraps` do, and what are the pitfalls of caching?",mid,python|performance,1,3,2,1,2026-10-04,https://docs.python.org/3/library/functools.html
+317,"How do you manage virtual environments and dependencies in a modern Python project (`pyproject.toml`, pip, Poetry, uv)?",mid,python|ci-cd,2,4,3,1,2026-10-04,https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+318,"How does multiple inheritance work in Python? Explain the MRO and what `super()` really calls.",senior,python,0,3,3,2,2026-10-04,
+319,"How do you write generic functions and classes in modern Python typing, including the Python 3.12 type parameter syntax?",senior,python|typescript,0,2,3,3,2026-10-04,https://docs.python.org/3/reference/compound_stmts.html#type-params
+320,"How do `asyncio.TaskGroup`, `asyncio.gather` and task cancellation work, and what goes wrong if you swallow `CancelledError`?",master,python|performance,0,1,3,4,2026-10-04,https://docs.python.org/3/library/asyncio-task.html
+321,"What is free-threaded (no-GIL) Python, and should you adopt it for a production service today?",master,python|performance,0,1,2,4,2026-10-04,https://docs.python.org/3/howto/free-threading-python.html
+322,"How do you return the right status codes and error responses from a FastAPI endpoint?",junior,python|fastapi|rest,3,3,1,0,2026-10-04,https://fastapi.tiangolo.com/tutorial/handling-errors/
+323,"What does FastAPI generate automatically at `/docs` and `/openapi.json`, and how do you customize it?",junior,fastapi|rest,3,3,1,0,2026-10-04,https://fastapi.tiangolo.com/tutorial/metadata/
+324,"How do you manage configuration and secrets in a FastAPI app with `pydantic-settings`?",mid,python|fastapi|be-security,1,3,2,1,2026-10-04,https://fastapi.tiangolo.com/advanced/settings/
+325,"How do you implement JWT authentication in FastAPI with `OAuth2PasswordBearer`?",mid,fastapi|auth|be-security,1,4,3,1,2026-10-04,https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
+326,"How do you test a FastAPI application (TestClient, async clients, dependency overrides, test database)?",mid,fastapi|testing,1,4,3,1,2026-10-04,https://fastapi.tiangolo.com/advanced/async-tests/
+327,"How would you structure a larger FastAPI project with `APIRouter` and custom exception handlers?",mid,fastapi|architecture,1,3,3,1,2026-10-04,https://fastapi.tiangolo.com/tutorial/bigger-applications/
+328,"How do you use SQLAlchemy 2.0 async sessions with FastAPI, and what pitfalls do you watch out for?",senior,fastapi|sql,0,3,4,2,2026-10-04,
+329,"How do you deploy a FastAPI app to production (Uvicorn workers, Gunicorn, containers, reverse proxy)?",senior,fastapi|docker|cloud,0,2,4,3,2026-10-04,https://fastapi.tiangolo.com/deployment/
+330,"How would you stream LLM-style token responses and push live updates to many clients from a horizontally scaled FastAPI service?",master,fastapi|network|system-design,0,1,3,4,2026-10-04,
+331,"What is the difference between `WHERE` and `HAVING`, and in what logical order is a `SELECT` evaluated?",junior,sql,4,4,2,1,2026-10-04,
+332,"What does ACID stand for, and how does a database actually provide each guarantee?",junior,sql,4,4,2,1,2026-10-04,
+333,"Explain primary keys, foreign keys and other constraints. What do `ON DELETE CASCADE` and `RESTRICT` do?",junior,sql,4,3,2,0,2026-10-04,
+334,"What is database normalization (1NF, 2NF, 3NF), and when would you deliberately denormalize?",junior,sql|architecture,4,4,3,1,2026-10-04,
+335,"What are window functions? Use one to get the top 3 most recent orders per customer.",mid,sql,1,4,4,2,2026-10-04,https://www.postgresql.org/docs/current/tutorial-window.html
+336,"What is a CTE, and how would you use a recursive CTE to query a hierarchy?",mid,sql,1,3,3,2,2026-10-04,https://www.postgresql.org/docs/current/queries-with.html
+337,"Compare optimistic and pessimistic locking. How do deadlocks happen and how do you avoid them?",mid,sql|architecture,1,4,4,3,2026-10-04,
+338,"What is connection pooling, why does it matter for databases, and how do you size a pool?",senior,sql|performance,0,3,4,3,2026-10-04,
+339,"How do you read an `EXPLAIN ANALYZE` plan to find out why a query is slow?",senior,sql|performance,0,2,4,3,2026-10-04,https://www.postgresql.org/docs/current/using-explain.html
+340,"How do you run database schema migrations in production without downtime?",master,sql|ci-cd|architecture,0,1,4,4,2026-10-04,
+341,"What are the main types of NoSQL databases, and what is each one good for?",junior,nosql,3,4,2,1,2026-10-04,
+342,"What is Redis, which data structures does it offer, and what are typical use cases for each?",junior,nosql|caching,3,4,3,1,2026-10-04,https://redis.io/docs/latest/develop/data-types/
+343,"How do indexes and the aggregation pipeline work in MongoDB?",mid,nosql|performance,1,3,3,2,2026-10-04,
+344,"When would you store JSON in a relational database (e.g. PostgreSQL `jsonb`) instead of using columns or a document database?",mid,sql|nosql|architecture,1,3,4,2,2026-10-04,
+345,"How do you design partition and sort keys in DynamoDB, and what is a hot partition?",senior,nosql|system-design,0,2,4,3,2026-10-04,
+346,"How do read replicas and sharding work, and what problems does each introduce?",master,sql|nosql|system-design,0,1,3,4,2026-10-04,
+347,"What is caching, and at which layers of a typical web application can you cache?",junior,caching|performance,4,3,2,1,2026-10-04,
+348,"Explain HTTP caching headers: `Cache-Control`, `ETag`/`If-None-Match`, and `stale-while-revalidate`.",mid,caching|network|performance,2,4,3,2,2026-10-04,
+349,"How does a CDN cache dynamic content, and how do you control cache keys and purging?",mid,caching|network|performance,1,3,4,2,2026-10-04,
+350,"Compare cache eviction policies (LRU, LFU, FIFO, TTL) and implement a simple LRU cache.",mid,caching|js,2,4,3,1,2026-10-04,
+351,"How do you cache personalized or authenticated responses without leaking data between users?",senior,caching|be-security|performance,0,2,4,3,2026-10-04,
+352,"How do you design REST resource URLs, including nesting, filtering, sorting and actions that don't map to CRUD?",junior,rest|architecture,4,4,2,1,2026-10-04,
+353,"How should a REST API return errors? What is the Problem Details format (RFC 9457)?",junior,rest,3,4,3,1,2026-10-04,https://www.rfc-editor.org/rfc/rfc9457
+354,"How would you design file uploads in an API, including large files?",mid,rest|cloud|be-security,1,4,3,2,2026-10-04,
+355,"How would you design an API endpoint for a long-running operation like generating a large report?",mid,rest|architecture,1,4,4,2,2026-10-04,
+356,"How would you implement idempotency keys for a payments API?",senior,rest|architecture|system-design,0,2,4,4,2026-10-04,
+357,"Design a reliable webhook delivery system for your platform.",master,rest|system-design|be-security,0,1,3,4,2026-10-04,
+358,"What are fragments in GraphQL, and what is the difference between named and inline fragments?",junior,graphql,3,3,2,1,2026-10-04,https://graphql.org/learn/queries/
+359,"How do variables and input types work in GraphQL, and why shouldn't you build queries with string interpolation?",junior,graphql|security,3,3,2,1,2026-10-04,
+360,"Schema-first vs code-first GraphQL servers: what are the trade-offs?",mid,graphql|architecture|typescript,1,3,3,2,2026-10-04,
+361,"How does cursor-based pagination work in GraphQL with Relay-style connections?",mid,graphql|performance,1,4,3,2,2026-10-04,https://relay.dev/graphql/connections.htm
+362,"How does error handling work in GraphQL, and how should you model expected errors?",senior,graphql|architecture,0,3,4,3,2026-10-04,
+363,"How do typed GraphQL clients and code generation work in a TypeScript frontend?",mid,graphql|typescript|react,1,3,3,2,2026-10-04,
+364,"How can you cache GraphQL responses, given that most requests are `POST`s to a single endpoint?",senior,graphql|caching|performance,0,2,4,3,2026-10-04,
+365,"What is GraphQL Federation (a supergraph), and when would you choose it over a single monolithic schema?",master,graphql|architecture|system-design,0,1,3,4,2026-10-04,
+366,"What is the difference between hashing, encryption and encoding?",junior,security|be-security,4,3,2,1,2026-10-04,
+367,"Compare symmetric and asymmetric encryption. What is a digital signature?",junior,security,3,3,2,1,2026-10-04,
+368,"Why can't you hide an API key in frontend code, and what should you do instead?",junior,security|fe-security,3,3,2,1,2026-10-04,
+369,"Which HTTP security response headers would you set on a modern web app, and what does each one do?",mid,security|fe-security|be-security,1,3,3,2,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+370,"How would you securely handle file uploads in a web application?",mid,security|be-security,1,3,4,2,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+371,"What is IDOR (broken object-level authorization), and how do you prevent it?",mid,security|be-security|auth,2,4,3,2,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html
+372,"What is a mass assignment vulnerability, and how do you prevent it in an API?",mid,security|be-security|rest,1,3,3,2,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html
+373,"How do path traversal and OS command injection work, and how do you prevent them in Node.js or Python?",mid,security|be-security|node,1,3,3,2,2026-10-04,
+374,"What is prototype pollution in JavaScript, and how do you defend against it?",senior,security|js|be-security,0,2,3,3,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/Prototype_Pollution_Prevention_Cheat_Sheet.html
+375,"How do you protect a project against software supply-chain attacks through npm or PyPI dependencies?",senior,security|ci-cd,0,2,4,3,2026-10-04,
+376,"How would you threat-model a new feature? Explain STRIDE.",master,security|architecture,0,1,3,4,2026-10-04,https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html
+377,"Compare MFA methods: SMS codes, TOTP apps and WebAuthn passkeys. Why are passkeys phishing-resistant?",mid,auth|security,2,3,3,2,2026-10-04,
+378,"What is session fixation, and how should a server manage the session lifecycle securely?",mid,auth|security|be-security,1,3,3,2,2026-10-04,
+379,"RBAC vs ABAC (vs ReBAC): how would you model permissions for a multi-tenant app?",mid,auth|architecture,1,3,4,3,2026-10-04,
+380,"How does SSO work, and how do SAML and OpenID Connect differ?",senior,auth|security,0,2,3,3,2026-10-04,
+381,"Design refresh token handling with rotation and reuse detection. How do you revoke access quickly?",master,auth|security|be-security,0,1,3,4,2026-10-04,
+382,"Explain the OSI model and the TCP/IP model. Why do engineers still talk about ""L4"" and ""L7""?",junior,network,3,3,2,1,2026-10-04,
+383,"What are IP addresses, CIDR notation, private ranges and NAT?",junior,network|cloud,2,3,2,1,2026-10-04,
+384,"What are ports and sockets? Why does `localhost:3000` work but the app isn't reachable from another machine?",junior,network|node,3,3,2,1,2026-10-04,
+385,"What is the difference between a forward proxy, a reverse proxy and an API gateway?",mid,network|architecture,2,4,3,2,2026-10-04,
+386,"How does a CDN work, and what can and can't it speed up?",mid,network|performance|caching,2,4,3,2,2026-10-04,
+387,"How do HTTP keep-alive and connection pooling work, and what goes wrong when they're misconfigured?",senior,network|performance|node,0,2,4,3,2026-10-04,
+388,"What does code coverage measure, and why is 100% coverage not the same as well-tested code?",junior,testing,3,3,3,2,2026-10-04,
+389,"What makes a good unit test?",junior,testing,4,3,2,1,2026-10-04,
+390,"How do pytest fixtures work? Explain scopes, `yield` teardown, `conftest.py` and parametrization.",junior,testing|python,3,3,2,1,2026-10-04,https://docs.pytest.org/en/stable/how-to/fixtures.html
+391,"Playwright vs Cypress: how do they differ, and how do you keep end-to-end tests reliable?",mid,testing|js,1,3,3,2,2026-10-04,
+392,"What is contract testing, and when would you use consumer-driven contracts (e.g. Pact)?",senior,testing|architecture,0,2,3,3,2026-10-04,https://docs.pact.io/
+393,"How would you load-test an API? Explain load, stress, spike and soak tests.",senior,testing|performance,0,2,3,3,2026-10-04,
+394,"What is property-based testing, and when does it find bugs that example-based tests miss?",master,testing|python|js,0,1,2,3,2026-10-04,
+395,"What is mutation testing, and what does a mutation score tell you that coverage doesn't?",master,testing,0,0,2,3,2026-10-04,
+396,"What's the difference between `CMD` and `ENTRYPOINT` in a Dockerfile, and why does the exec form matter?",junior,docker,3,4,2,1,2026-10-04,https://docs.docker.com/reference/dockerfile/
+397,"What's the difference between `COPY` and `ADD`, and what is `.dockerignore` for?",junior,docker,3,3,1,0,2026-10-04,
+398,"How do you harden a production container image (base image choice, non-root user, scanning)?",senior,docker|security,0,2,4,3,2026-10-04,
+399,"How would you set up Docker Compose for local full-stack development?",mid,docker,2,3,2,1,2026-10-04,https://docs.docker.com/compose/
+400,"How should you pass configuration and secrets to a container, both at build time and at runtime?",mid,docker|be-security,1,3,3,2,2026-10-04,
+401,"Docker vs Kubernetes: what does an orchestrator add, and what are pods, deployments, services and ingress?",mid,docker|cloud,2,4,3,2,2026-10-04,https://kubernetes.io/docs/concepts/
+402,"Explain the building blocks of a GitHub Actions workflow: events, jobs, steps, runners and actions.",junior,ci-cd,3,3,2,1,2026-10-04,https://docs.github.com/en/actions
+403,"How do you manage secrets in CI, and why is OIDC better than storing long-lived cloud keys?",mid,ci-cd|cloud|security,1,3,3,2,2026-10-04,
+404,"How do you measure how well a team delivers software? Explain the DORA metrics.",senior,ci-cd,0,2,3,3,2026-10-04,
+405,"What are preview environments, and how would you set them up for every pull request?",mid,ci-cd|cloud,1,2,2,1,2026-10-04,
+406,"A deploy just broke production. How do you decide between rolling back and rolling forward?",senior,ci-cd,0,2,4,3,2026-10-04,
+407,"How do you secure the CI/CD pipeline itself (third-party actions, tokens, untrusted pull requests, artifact provenance)?",master,ci-cd|security,0,1,3,4,2026-10-04,
+408,"Explain IaaS, PaaS, SaaS and FaaS with examples. Where would you host a typical web app?",junior,cloud,3,3,1,1,2026-10-04,
+409,"What are cloud regions and availability zones, and how do they affect availability and latency?",junior,cloud|system-design,2,3,3,2,2026-10-04,
+410,"How do presigned URLs work for uploading and downloading files from object storage like S3?",mid,cloud|be-security,1,3,3,2,2026-10-04,
+411,"What is Infrastructure as Code? How do Terraform state, plan and apply work?",mid,cloud|ci-cd,1,3,3,2,2026-10-04,https://developer.hashicorp.com/terraform/docs
+412,"What are logs, metrics and traces, and what role does OpenTelemetry play in observability?",mid,cloud|architecture,1,3,4,3,2026-10-04,https://opentelemetry.io/docs/
+413,"What's the difference between `git fetch` and `git pull`?",junior,git,4,3,1,0,2026-10-04,
+414,"What does `git stash` do, and when would you use it?",junior,git,3,2,1,0,2026-10-04,https://git-scm.com/docs/git-stash
+415,"You accidentally committed a `.env` file with secrets. What do you do, and how do you prevent it next time?",junior,git|security,3,3,3,2,2026-10-04,
+416,"How do you use interactive rebase to clean up commits before opening a pull request?",mid,git,2,3,2,1,2026-10-04,
+417,"What is `git reflog`, and how would you recover commits after a bad reset or rebase?",mid,git,1,3,2,1,2026-10-04,https://git-scm.com/docs/git-reflog
+418,"What are Conventional Commits and semantic versioning, and how can they automate releases?",mid,git|ci-cd,2,3,2,1,2026-10-04,https://www.conventionalcommits.org/
+419,"Monorepo vs polyrepo: what are the trade-offs, and how does CI need to change for a monorepo?",senior,git|ci-cd|architecture,0,2,3,3,2026-10-04,
+420,"What is the Twelve-Factor App methodology, and which factors still matter most today?",mid,architecture|cloud,1,3,3,2,2026-10-04,https://12factor.net/
+421,"What is the Backend-for-Frontend (BFF) pattern, and how does it differ from a general API gateway?",mid,architecture|rest,1,3,3,2,2026-10-04,
+422,"Explain hexagonal (ports and adapters) or clean architecture. What problem does it solve?",senior,architecture,0,2,4,3,2026-10-04,
+423,"Design a search autocomplete (typeahead) system.",senior,system-design|caching|performance,0,2,4,3,2026-10-04,
+424,"Compare Kafka, RabbitMQ and SQS. How do you handle back-pressure when consumers can't keep up?",senior,system-design|architecture,0,2,3,3,2026-10-04,
+425,"What is the strangler fig pattern, and how would you use it to migrate away from a legacy system?",senior,architecture,0,1,3,3,2026-10-04,
+426,"What are CQRS and event sourcing, and when are they worth the added complexity?",master,architecture|system-design,0,1,2,4,2026-10-04,
+427,"How do you handle a business transaction that spans several services? Explain the saga pattern.",master,system-design|architecture,0,1,3,4,2026-10-04,
+428,"Design a real-time chat application like Slack or WhatsApp.",master,system-design|network,0,1,3,4,2026-10-04,
+429,"Design the payment flow for an e-commerce checkout.",master,system-design|be-security,0,0,3,4,2026-10-04,
+430,"What are your greatest strengths and weaknesses?",junior,hr,4,4,3,3,2026-10-04,
+431,"What achievement or project are you most proud of?",junior,hr,3,4,4,4,2026-10-04,
+432,"Tell me about a time you worked under pressure or against a tight deadline.",junior,hr,3,4,4,3,2026-10-04,
+433,"Tell me about a time you received critical feedback. How did you respond?",junior,hr,3,3,3,3,2026-10-04,
+434,"How do you learn a new technology quickly? Give an example.",junior,hr,4,3,2,2,2026-10-04,
+435,"Why do you want to work here, and where do you see yourself in five years?",junior,hr,4,4,3,3,2026-10-04,
+436,"How would you explain a technical concept or decision to a non-technical stakeholder?",mid,hr,2,3,4,4,2026-10-04,
+437,"How do you prioritize when you have several urgent tasks at once?",mid,hr,2,4,4,3,2026-10-04,
+438,"How do you work effectively in a remote team that relies on asynchronous communication?",mid,hr,2,3,3,3,2026-10-04,
+439,"How do you mentor junior developers? Give an example of helping someone grow.",senior,hr,0,2,4,4,2026-10-04,
+440,"Tell me about a production incident you were involved in. How was it handled and what changed afterwards?",senior,hr,1,3,4,4,2026-10-04,
