@@ -1,0 +1,31 @@
+id,label,group
+js,JavaScript,frontend
+typescript,TypeScript,frontend
+html,HTML,frontend
+css,CSS,frontend
+react,React,frontend
+nextjs,Next.js,frontend
+browser,Browser,frontend
+accessibility,Accessibility,frontend
+performance,Performance,frontend
+node,Node.js,backend
+python,Python,backend
+fastapi,FastAPI,backend
+rest,REST,backend
+graphql,GraphQL,backend
+sql,SQL,backend
+nosql,NoSQL,backend
+caching,Caching,backend
+security,Security,security
+fe-security,Frontend security,security
+be-security,Backend security,security
+auth,Auth,security
+network,Network,infra
+ci-cd,CI/CD,infra
+docker,Docker,infra
+cloud,Cloud,infra
+git,Git,infra
+testing,Testing,infra
+architecture,Architecture,design
+system-design,System design,design
+hr,HR,soft
