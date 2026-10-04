@@ -1,8 +1,9 @@
-import { createEffect, createMemo, createResource, createRoot, createSignal } from 'solid-js';
+import { createEffect, createMemo, createResource, createRoot, createSignal, on } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { loadRaw } from './api.ts';
 import { LEVELS, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
 import { mergeProgress, progress } from './progress.ts';
+import { buildEntry, matchEntry, parseQuery, typoTerms, type SearchMatch } from './search.ts';
 
 // ---------- data ----------
 
@@ -136,50 +137,81 @@ export const importanceOf = (q: Question, t: Target = target()) =>
 
 const levelRank = (l: Level) => LEVELS.indexOf(l);
 
-const haystacks = createRoot(() => createMemo(
-  () =>
-    new Map(
-      questions().map((q) => [q.id, [q.question, q.tags.join(' '), q.hints.join(' '), q.answer].join('\n').toLowerCase()]),
+const searchEntries = createRoot(() =>
+  createMemo(() => {
+    const labels = tagById();
+    return new Map(questions().map((q) => [q.id, buildEntry(q, q.tags.map((t) => labels.get(t)?.label ?? t))]));
+  }),
+);
+
+// Matching runs on a debounced copy of the search box so typing stays smooth.
+const [searchQuery, setSearchQuery] = createSignal(filters.search);
+let searchTimer: ReturnType<typeof setTimeout> | undefined;
+createRoot(() =>
+  createEffect(
+    on(
+      () => filters.search,
+      (value) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => setSearchQuery(value), 120);
+      },
+      { defer: true },
     ),
-));
+  ),
+);
 
-export const filtered = createRoot(() => createMemo(() => {
-  const f = filters;
-  const terms = f.search.toLowerCase().split(/\s+/).filter(Boolean);
-  const hay = haystacks();
-  const prog = progress();
-  const t = target();
+/** id → how the question matches the search box (null = no match). Empty when the search box is empty. */
+export const searchMatches = createRoot(() =>
+  createMemo(() => {
+    const terms = parseQuery(searchQuery());
+    const out = new Map<number, SearchMatch | null>();
+    if (!terms.length) return out;
+    const entries = searchEntries();
+    const typos = typoTerms(terms, entries.values());
+    for (const [id, entry] of entries) out.set(id, matchEntry(entry, terms, typos));
+    return out;
+  }),
+);
 
-  const list = questions().filter((q) => {
-    if (f.levels.length && !f.levels.includes(q.level)) return false;
-    if (f.tags.length) {
-      const match = f.tagMode === 'all' ? f.tags.every((x) => q.tags.includes(x)) : f.tags.some((x) => q.tags.includes(x));
-      if (!match) return false;
-    }
-    if (importanceOf(q, t) < f.minImp) return false;
-    const status = prog[q.id]?.status ?? null;
-    if (f.progress === 'unseen' && status) return false;
-    if (f.progress === 'review' && status !== 'review') return false;
-    if (f.progress === 'known' && status !== 'known') return false;
-    if (f.progress === 'hide-known' && status === 'known') return false;
-    if (terms.length) {
-      const h = hay.get(q.id) ?? '';
-      if (!terms.every((term) => h.includes(term))) return false;
-    }
-    return true;
-  });
+export const filtered = createRoot(() =>
+  createMemo(() => {
+    const f = filters;
+    const searching = parseQuery(searchQuery()).length > 0;
+    const matches = searchMatches();
+    const prog = progress();
+    const t = target();
 
-  const byLevel = (a: Question, b: Question) => levelRank(a.level) - levelRank(b.level);
-  const byDate = (a: Question, b: Question) => a.added.localeCompare(b.added) || a.id - b.id;
-  const cmp: Record<SortKey, (a: Question, b: Question) => number> = {
-    importance: (a, b) => importanceOf(b, t) - importanceOf(a, t) || byLevel(a, b) || a.id - b.id,
-    'difficulty-asc': (a, b) => byLevel(a, b) || importanceOf(b, t) - importanceOf(a, t) || a.id - b.id,
-    'difficulty-desc': (a, b) => byLevel(b, a) || importanceOf(b, t) - importanceOf(a, t) || a.id - b.id,
-    newest: (a, b) => byDate(b, a),
-    oldest: byDate,
-  };
-  return list.sort(cmp[f.sort]);
-}));
+    const list = questions().filter((q) => {
+      if (f.levels.length && !f.levels.includes(q.level)) return false;
+      if (f.tags.length) {
+        const match = f.tagMode === 'all' ? f.tags.every((x) => q.tags.includes(x)) : f.tags.some((x) => q.tags.includes(x));
+        if (!match) return false;
+      }
+      if (importanceOf(q, t) < f.minImp) return false;
+      const status = prog[q.id]?.status ?? null;
+      if (f.progress === 'unseen' && status) return false;
+      if (f.progress === 'review' && status !== 'review') return false;
+      if (f.progress === 'known' && status !== 'known') return false;
+      if (f.progress === 'hide-known' && status === 'known') return false;
+      if (searching && !matches.get(q.id)) return false;
+      return true;
+    });
+
+    const byLevel = (a: Question, b: Question) => levelRank(a.level) - levelRank(b.level);
+    const byDate = (a: Question, b: Question) => a.added.localeCompare(b.added) || a.id - b.id;
+    const cmp: Record<SortKey, (a: Question, b: Question) => number> = {
+      importance: (a, b) => importanceOf(b, t) - importanceOf(a, t) || byLevel(a, b) || a.id - b.id,
+      'difficulty-asc': (a, b) => byLevel(a, b) || importanceOf(b, t) - importanceOf(a, t) || a.id - b.id,
+      'difficulty-desc': (a, b) => byLevel(b, a) || importanceOf(b, t) - importanceOf(a, t) || a.id - b.id,
+      newest: (a, b) => byDate(b, a),
+      oldest: byDate,
+    };
+    // While searching, title matches come first, then typo matches, then answer-only matches;
+    // the chosen sort applies within each group.
+    const tier = (q: Question) => matches.get(q.id)?.tier ?? 0;
+    return list.sort((a, b) => (searching ? tier(a) - tier(b) : 0) || cmp[f.sort](a, b));
+  }),
+);
 
 // ---------- editor ----------
 

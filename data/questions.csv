@@ -439,3 +439,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 438,"How do you work effectively in a remote team that relies on asynchronous communication?",mid,hr,2,3,3,3,2026-10-04,
 439,"How do you mentor junior developers? Give an example of helping someone grow.",senior,hr,0,2,4,4,2026-10-04,
 440,"Tell me about a production incident you were involved in. How was it handled and what changed afterwards?",senior,hr,1,3,4,4,2026-10-04,
+441,"What is a Promise in JavaScript? Explain its states, chaining and how errors propagate.",junior,js,4,4,2,1,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+442,"How do `JSON.parse` and `JSON.stringify` work, and which values don't survive a round trip?",junior,js,4,3,2,0,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+443,"How do you safely parse and validate JSON from an API or user input?",mid,js|typescript|security,2,4,3,2,2026-10-04,
+444,"How do you handle very large JSON payloads without blocking the browser or the server?",senior,js|node|performance,0,2,3,3,2026-10-04,

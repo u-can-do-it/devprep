@@ -2,7 +2,7 @@
 
 **Live site: https://u-can-do-it.github.io/devprep/**
 
-Technical interview prep for full-stack developers: 440 questions with hints and Markdown answers,
+Technical interview prep for full-stack developers: 444 questions with hints and Markdown answers,
 filterable by tag, difficulty and how likely they are to come up at your interview level.
 
 No backend and no accounts. Questions live in this repo as CSV and Markdown; you edit them locally and push.
@@ -17,6 +17,7 @@ pnpm validate      # only check data/
 ## Features
 
 - **Filters:** full-text search (question, hints and answer), difficulty, tags (match any or all), minimum importance, progress
+- **Search:** matches the question, tags, hints and answer. Words that don't appear anywhere as typed are matched with typo tolerance (`promsie` finds Promise). Results matching the question come first, then ones that match only in hints or answers (labelled "Matched in answer"). Matches are highlighted.
 - **Sorting:** importance, difficulty, date added
 - **Preparing for:** pick the interview level (junior, mid, senior, master). Importance, sorting and practice weighting follow it.
 - **Hints and answers** are hidden until you open them.

@@ -1,7 +1,18 @@
 import { createEffect, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVEL_LABEL } from '../lib/format.ts';
-import { filtered, filters, hasActiveFilters, questions, resetFilters, setEditing, setFilters, target, type SortKey } from '../lib/state.ts';
+import {
+  filtered,
+  filters,
+  hasActiveFilters,
+  questions,
+  resetFilters,
+  searchMatches,
+  setEditing,
+  setFilters,
+  target,
+  type SortKey,
+} from '../lib/state.ts';
 import { QuestionCard } from './QuestionCard.tsx';
 
 const PAGE = 40;
@@ -30,6 +41,15 @@ export function QuestionList() {
     onCleanup(() => io.disconnect());
   });
 
+  /** "8 in questions · 5 only in answers" while searching. */
+  const searchSplit = () => {
+    const m = searchMatches();
+    if (!m.size) return '';
+    const inTitle = filtered().filter((q) => (m.get(q.id)?.tier ?? 0) < 2).length;
+    const elsewhere = filtered().length - inTitle;
+    return elsewhere ? `${inTitle} in questions, ${elsewhere} only in hints or answers` : '';
+  };
+
   const importanceLabel = () => (target() === 'any' ? 'Importance' : `Importance (${LEVEL_LABEL[target() as 'mid']})`);
 
   return (
@@ -37,6 +57,7 @@ export function QuestionList() {
       <div class="toolbar">
         <span class="results">
           {filtered().length} {filtered().length === 1 ? 'question' : 'questions'}
+          <Show when={searchSplit()}>{(split) => <span class="results-split"> · {split()}</span>}</Show>
         </span>
         <span class="spacer" />
         <label>

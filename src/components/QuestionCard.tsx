@@ -2,7 +2,7 @@ import { createSignal, For, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL, type Question } from '../lib/format.ts';
 import { statusOf, toggleStatus } from '../lib/progress.ts';
-import { filters, importanceOf, setEditing, target, toggleIn } from '../lib/state.ts';
+import { filters, importanceOf, searchMatches, setEditing, target, toggleIn } from '../lib/state.ts';
 import { ImportanceMeter, LevelBadge, TagBadge } from './Badges.tsx';
 import { InlineMarkdown, Markdown } from './Markdown.tsx';
 
@@ -11,6 +11,12 @@ export function QuestionCard(props: { q: Question }) {
   const [hintsSeen, setHintsSeen] = createSignal(false);
   const [answerSeen, setAnswerSeen] = createSignal(false);
   const status = () => statusOf(props.q.id);
+  const match = () => searchMatches().get(props.q.id) ?? undefined;
+  const marks = () => match()?.marks;
+  const matchedIn = () => {
+    const fields = match()?.tier === 2 ? match()!.matchedIn : [];
+    return fields.length ? `Matched in ${fields.join(', ')}` : '';
+  };
   const breakdown = () => LEVELS.map((l) => `${LEVEL_LABEL[l]} ${props.q.importance[l]}`).join(' · ');
 
   return (
@@ -28,9 +34,12 @@ export function QuestionCard(props: { q: Question }) {
       </div>
 
       <h2 class="question-title">
-        <InlineMarkdown src={props.q.question} />
+        <InlineMarkdown src={props.q.question} marks={marks()} />
       </h2>
       <div class="sub">
+        <Show when={matchedIn()}>
+          <span class="match-label">{matchedIn()}</span>
+        </Show>
         <a href={`#q-${props.q.id}`}>#{props.q.id}</a>
         <span>added {props.q.added}</span>
         <span title="Importance per interview level (0–4)">{breakdown()}</span>
@@ -50,7 +59,7 @@ export function QuestionCard(props: { q: Question }) {
                 <For each={props.q.hints}>
                   {(h) => (
                     <li>
-                      <InlineMarkdown src={h} />
+                      <InlineMarkdown src={h} marks={marks()} />
                     </li>
                   )}
                 </For>
@@ -61,7 +70,7 @@ export function QuestionCard(props: { q: Question }) {
         <details class="reveal" onToggle={(e) => e.currentTarget.open && setAnswerSeen(true)}>
           <summary>Show answer</summary>
           <Show when={answerSeen()}>
-            <Markdown src={props.q.answer} />
+            <Markdown src={props.q.answer} marks={marks()} />
           </Show>
         </details>
       </div>
