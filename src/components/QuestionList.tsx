@@ -1,6 +1,7 @@
 import { createEffect, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVEL_LABEL } from '../lib/format.ts';
+import { progress } from '../lib/progress.ts';
 import {
   filtered,
   filters,
@@ -50,6 +51,10 @@ export function QuestionList() {
     return elsewhere ? `${inTitle} in questions, ${elsewhere} only in hints or answers` : '';
   };
 
+  // "Unseen" and "to review" already leave known questions out, so they count as hiding them too.
+  const hidingKnown = () => ['hide-known', 'unseen', 'review'].includes(filters.progress);
+  const knownCount = () => Object.values(progress()).filter((e) => e.status === 'known').length;
+
   const importanceLabel = () => (target() === 'any' ? 'Importance' : `Importance (${LEVEL_LABEL[target() as 'mid']})`);
 
   return (
@@ -60,6 +65,14 @@ export function QuestionList() {
           <Show when={searchSplit()}>{(split) => <span class="results-split"> · {split()}</span>}</Show>
         </span>
         <span class="spacer" />
+        <label class="toggle" title="Also available as Progress → Hide known in the sidebar">
+          <input
+            type="checkbox"
+            checked={hidingKnown()}
+            onChange={(e) => setFilters('progress', e.currentTarget.checked ? 'hide-known' : 'all')}
+          />
+          Hide known ({knownCount()})
+        </label>
         <label>
           Sort
           <select value={filters.sort} onChange={(e) => setFilters('sort', e.currentTarget.value as SortKey)}>

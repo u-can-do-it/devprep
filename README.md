@@ -21,7 +21,7 @@ pnpm validate      # only check data/
 - **Sorting:** importance, difficulty, date added
 - **Preparing for:** pick the interview level (junior, mid, senior, master). Importance, sorting and practice weighting follow it.
 - **Hints and answers** are hidden until you open them.
-- **Progress:** mark questions as *known* or *review later*. Stored in your browser; export or import as CSV, or in dev write it to `data/progress.csv`.
+- **Progress:** mark questions as *known* or *review later*, and hide known ones with the toolbar toggle. Stored in your browser; export or import as CSV, or in dev write it to `data/progress.csv`.
 - **Practice mode:** flashcards from the current filters, shuffled with weights (important and "review" questions come first). Keys: `H` hint, `A`/`Space` answer, `K` knew it, `R` review, `S` skip, `←` back.
 - **Editor** (dev server only): add, edit and delete questions from the UI. It writes straight to `data/`.
 - Filters live in the URL, so any view can be bookmarked or shared.
