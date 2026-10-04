@@ -69,7 +69,7 @@ export function QuestionList() {
       >
         <For each={visible()}>{(q) => <QuestionCard q={q} />}</For>
       </Show>
-      <div ref={sentinel} style={{ height: '1px' }} />
+      <div ref={sentinel} class="sentinel" />
     </>
   );
 }

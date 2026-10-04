@@ -41,7 +41,7 @@ export function QuestionCard(props: { q: Question }) {
         </Show>
       </div>
 
-      <div style={{ 'margin-top': '10px' }}>
+      <div class="reveals">
         <Show when={props.q.hints.length}>
           <details class="reveal" onToggle={(e) => e.currentTarget.open && setHintsSeen(true)}>
             <summary>Hints ({props.q.hints.length})</summary>

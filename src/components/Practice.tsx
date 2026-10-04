@@ -111,14 +111,14 @@ export function Practice() {
           when={!done() && current()}
           fallback={
             <div class="card summary">
-              <h2 style={{ margin: 0 }}>Round finished</h2>
+              <h2>Round finished</h2>
               <div class="stats">
-                <div class="stat">
-                  <b style={{ color: 'var(--known)' }}>{tally().known}</b>
+                <div class="stat known">
+                  <b>{tally().known}</b>
                   <span>knew it</span>
                 </div>
-                <div class="stat">
-                  <b style={{ color: 'var(--review)' }}>{tally().review}</b>
+                <div class="stat review">
+                  <b>{tally().review}</b>
                   <span>to review</span>
                 </div>
                 <div class="stat">
@@ -148,7 +148,7 @@ export function Practice() {
               </h2>
               <Show when={statusOf(q().id)}>
                 {(s) => (
-                  <p class="sub" style={{ margin: 0 }}>
+                  <p class="sub practice-status">
                     Previously marked {s() === 'known' ? 'known' : 'to review'}
                   </p>
                 )}
@@ -183,7 +183,7 @@ export function Practice() {
                 </Show>
                 <button onClick={() => setAnswerShown((v) => !v)}>{answerShown() ? 'Hide answer' : 'Reveal answer'}</button>
               </div>
-              <div class="practice-controls" style={{ 'border-top': '1px solid var(--border)', 'padding-top': '12px' }}>
+              <div class="practice-controls rating">
                 <button class="status-known" aria-pressed="true" onClick={() => rate('known')}>
                   ✓ Knew it
                 </button>
@@ -191,7 +191,7 @@ export function Practice() {
                   ↻ Review again
                 </button>
                 <button onClick={() => rate('skipped')}>Skip</button>
-                <span style={{ flex: 1 }} />
+                <span class="spacer" />
                 <button class="ghost" disabled={pos() === 0} onClick={() => go(-1)} aria-label="Previous question">
                   ←
                 </button>

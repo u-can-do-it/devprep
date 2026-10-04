@@ -229,12 +229,12 @@ function ProgressPanel() {
     <div class="section">
       <div class="section-title">Your progress</div>
       <div class="stats">
-        <div class="stat">
-          <b style={{ color: 'var(--known)' }}>{counts().known}</b>
+        <div class="stat known">
+          <b>{counts().known}</b>
           <span>known</span>
         </div>
-        <div class="stat">
-          <b style={{ color: 'var(--review)' }}>{counts().review}</b>
+        <div class="stat review">
+          <b>{counts().review}</b>
           <span>to review</span>
         </div>
         <div class="stat">
