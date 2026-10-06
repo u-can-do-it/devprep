@@ -9,6 +9,8 @@ browser,Browser,frontend
 accessibility,Accessibility,frontend
 performance,Performance,frontend
 micro-frontends,Micro-frontends,frontend
+state,State management,frontend
+design-systems,Design systems,frontend
 node,Node.js,backend
 python,Python,backend
 fastapi,FastAPI,backend
@@ -27,6 +29,8 @@ docker,Docker,infra
 cloud,Cloud,infra
 git,Git,infra
 testing,Testing,infra
+build-tools,Build tools,infra
 architecture,Architecture,design
 system-design,System design,design
+ai,AI and LLMs,ai
 hr,HR,soft

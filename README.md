@@ -2,7 +2,7 @@
 
 **Live site: https://u-can-do-it.github.io/devprep/**
 
-Technical interview prep for full-stack developers: 449 questions with hints and Markdown answers,
+Technical interview prep for full-stack developers: 493 questions with hints and Markdown answers,
 filterable by tag, difficulty and how likely they are to come up at your interview level.
 
 No backend and no accounts. Questions live in this repo as CSV and Markdown; you edit them locally and push.
@@ -88,7 +88,7 @@ defaults below; adjust them to how often the question really comes up.
 ### Tags
 
 Add a row to `data/tags.csv`. `group` decides which sidebar section the tag is listed under
-(`frontend`, `backend`, `security`, `infra`, `design`, `soft`, or a new one).
+(`frontend`, `backend`, `security`, `infra`, `design`, `ai`, `soft`, or a new one).
 
 ### Editing by hand
 

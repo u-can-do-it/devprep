@@ -35,7 +35,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 34,"Why does calling `setCount(count + 1)` twice in one handler only increment by one?",junior,react,4,3,1,0,2026-10-04,
 35,"When should you use `useMemo`, `useCallback` and `React.memo` — and when shouldn't you?",mid,react|performance,2,4,3,1,2026-10-04,
 36,"What's the difference between controlled and uncontrolled components in React?",junior,react|html,4,3,1,0,2026-10-04,
-37,"When would you lift state up, use Context, or reach for a state library like Zustand or Redux?",mid,react|architecture,2,4,4,2,2026-10-04,
+37,"When would you lift state up, use Context, or reach for a state library like Zustand or Redux?",mid,react|architecture|state,2,4,4,2,2026-10-04,
 38,"What is a custom hook, and do two components using the same custom hook share state?",mid,react,2,4,2,1,2026-10-04,
 39,"What do React 19 Actions, `useActionState`, `useOptimistic` and `use` give you?",senior,react,0,3,4,3,2026-10-04,https://react.dev/blog/2024/12/05/react-19
 40,"How does concurrent rendering work in React, and when would you use `useTransition` or `useDeferredValue`?",master,react|performance,0,1,3,4,2026-10-04,
@@ -200,7 +200,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 199,"Why shouldn't you mutate state directly, and how do you update objects and arrays in state?",junior,react|js,4,3,1,0,2026-10-04,https://react.dev/learn/updating-objects-in-state
 200,"What does `<StrictMode>` do, and why do components and effects run twice in development?",junior,react,3,3,2,1,2026-10-04,https://react.dev/reference/react/StrictMode
 201,"When should you use `useLayoutEffect` instead of `useEffect`?",mid,react,2,4,3,1,2026-10-04,https://react.dev/reference/react/useLayoutEffect
-202,"When would you choose `useReducer` over `useState`?",mid,react,2,4,3,1,2026-10-04,https://react.dev/reference/react/useReducer
+202,"When would you choose `useReducer` over `useState`?",mid,react|state,2,4,3,1,2026-10-04,https://react.dev/reference/react/useReducer
 203,"How do you build accessible components in React, and what problem does `useId` solve?",mid,react|accessibility,1,3,3,2,2026-10-04,https://react.dev/reference/react/useId
 204,"What are portals in React, when do you need them, and how do events behave inside them?",mid,react,2,3,2,1,2026-10-04,https://react.dev/reference/react-dom/createPortal
 205,"What are error boundaries, which errors don't they catch, and why are they still class components?",mid,react,2,4,3,1,2026-10-04,
@@ -210,20 +210,20 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 209,"How do you type props, `children`, and event handlers for React components in TypeScript?",mid,react|typescript,2,4,3,1,2026-10-04,
 210,"What are higher-order components and render props, and why have hooks replaced most of them?",mid,react|architecture,2,3,3,1,2026-10-04,
 211,"What are common misuses of `useEffect`, and what should you do instead?",mid,react,1,4,4,2,2026-10-04,https://react.dev/learn/you-might-not-need-an-effect
-212,"What's the difference between server state and client state, and why use a library like TanStack Query for the former?",mid,react|architecture,1,3,4,2,2026-10-04,
+212,"What's the difference between server state and client state, and why use a library like TanStack Query for the former?",mid,react|architecture|state,1,3,4,2,2026-10-04,
 213,"How would you build and validate a form in React in 2026 — controlled state, `<form action>` with `FormData`, or React Hook Form?",mid,react,2,4,3,1,2026-10-04,
 214,"What is hydration, and what causes a hydration mismatch error?",senior,react,0,2,4,3,2026-10-04,https://react.dev/reference/react-dom/client/hydrateRoot
 215,"What is the React Compiler, and what does it change about how you write memoization?",senior,react|performance,0,2,4,3,2026-10-04,https://react.dev/learn/react-compiler
 216,"How do you find out why a React component re-renders, and how do you fix unnecessary re-renders?",senior,react|performance,0,3,4,3,2026-10-04,https://react.dev/reference/react/Profiler
-217,"Does `React.memo` stop Context consumers from re-rendering? How do you keep a frequently changing Context from re-rendering the whole tree?",senior,react|performance,0,2,4,3,2026-10-04,
+217,"Does `React.memo` stop Context consumers from re-rendering? How do you keep a frequently changing Context from re-rendering the whole tree?",senior,react|performance|state,0,2,4,3,2026-10-04,
 218,"What is list virtualization (windowing), when do you need it, and what are its downsides?",senior,react|performance,0,2,3,3,2026-10-04,
 219,"How does Suspense work for data fetching and streaming SSR, and where should you place Suspense boundaries?",senior,react|performance,0,2,4,3,2026-10-04,https://react.dev/reference/react/Suspense
-220,"How would you design a reusable component API using the compound components pattern?",senior,react|architecture,0,2,4,3,2026-10-04,
+220,"How would you design a reusable component API using the compound components pattern?",senior,react|architecture|design-systems,0,2,4,3,2026-10-04,
 221,"What problem does `useEffectEvent` solve, and what are its rules?",senior,react,0,2,3,2,2026-10-04,https://react.dev/reference/react/useEffectEvent
-222,"What is `useSyncExternalStore`, what is tearing, and how would you build a minimal global store with it?",master,react|performance,0,0,2,4,2026-10-04,https://react.dev/reference/react/useSyncExternalStore
+222,"What is `useSyncExternalStore`, what is tearing, and how would you build a minimal global store with it?",master,react|performance|state,0,0,2,4,2026-10-04,https://react.dev/reference/react/useSyncExternalStore
 223,"Explain React's render and commit phases and the Fiber architecture. Why must rendering be pure?",master,react,0,1,3,4,2026-10-04,
 224,"How would you architect a React dashboard that receives hundreds of real-time updates per second without freezing the UI?",master,react|performance|architecture,0,0,3,4,2026-10-04,
-225,"How would you build a type-safe polymorphic component (an `as` prop or `asChild`) in React with TypeScript?",master,react|typescript|architecture,0,0,2,3,2026-10-04,
+225,"How would you build a type-safe polymorphic component (an `as` prop or `asChild`) in React with TypeScript?",master,react|typescript|architecture|design-systems,0,0,2,3,2026-10-04,
 226,"What do the special files `page`, `layout`, `loading`, `error` and `not-found` do in the Next.js App Router?",junior,nextjs,4,4,2,1,2026-10-04,
 227,"How do you create dynamic routes in Next.js, and what's the difference between `[slug]`, `[...slug]` and `[[...slug]]`?",junior,nextjs,4,3,1,0,2026-10-04,
 228,"What does the Next.js `<Link>` component give you over a plain `<a>` tag, and how does prefetching work?",junior,nextjs|performance,4,3,2,1,2026-10-04,https://nextjs.org/docs/app/api-reference/components/link
@@ -269,7 +269,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 268,"What's the difference between CSS transitions and `@keyframes` animations, and which properties are cheap to animate?",mid,css|performance,2,3,3,1,2026-10-04,
 269,"How do you implement dark mode and respect reduced-motion preferences in CSS?",mid,css|accessibility,1,3,3,1,2026-10-04,
 270,"What do `:has()`, `:is()` and `:where()` do, and how do they affect specificity?",senior,css,1,3,3,2,2026-10-04,
-271,"Compare BEM, CSS Modules, utility-first CSS (Tailwind) and CSS-in-JS. How would you choose for a React app?",senior,css|architecture|react,1,3,4,3,2026-10-04,
+271,"Compare BEM, CSS Modules, utility-first CSS (Tailwind) and CSS-in-JS. How would you choose for a React app?",senior,css|architecture|react|design-systems,1,3,4,3,2026-10-04,
 272,"What is CSS subgrid and what problem does it solve?",senior,css,0,2,3,2,2026-10-04,
 273,"How does the View Transitions API work for same-document and cross-document navigations?",senior,css|browser,0,2,3,2,2026-10-04,https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
 274,"How would you structure a large CSS codebase with cascade layers (`@layer`) and `@scope`?",master,css|architecture,0,1,3,3,2026-10-04,
@@ -328,7 +328,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 327,"How would you structure a larger FastAPI project with `APIRouter` and custom exception handlers?",mid,fastapi|architecture,1,3,3,1,2026-10-04,https://fastapi.tiangolo.com/tutorial/bigger-applications/
 328,"How do you use SQLAlchemy 2.0 async sessions with FastAPI, and what pitfalls do you watch out for?",senior,fastapi|sql,0,3,4,2,2026-10-04,
 329,"How do you deploy a FastAPI app to production (Uvicorn workers, Gunicorn, containers, reverse proxy)?",senior,fastapi|docker|cloud,0,2,4,3,2026-10-04,https://fastapi.tiangolo.com/deployment/
-330,"How would you stream LLM-style token responses and push live updates to many clients from a horizontally scaled FastAPI service?",master,fastapi|network|system-design,0,1,3,4,2026-10-04,
+330,"How would you stream LLM-style token responses and push live updates to many clients from a horizontally scaled FastAPI service?",master,fastapi|network|system-design|ai,0,1,3,4,2026-10-04,
 331,"What is the difference between `WHERE` and `HAVING`, and in what logical order is a `SELECT` evaluated?",junior,sql,4,4,2,1,2026-10-04,
 332,"What does ACID stand for, and how does a database actually provide each guarantee?",junior,sql,4,4,2,1,2026-10-04,
 333,"Explain primary keys, foreign keys and other constraints. What do `ON DELETE CASCADE` and `RESTRICT` do?",junior,sql,4,3,2,0,2026-10-04,
@@ -444,7 +444,51 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 443,"How do you safely parse and validate JSON from an API or user input?",mid,js|typescript|security,2,4,3,2,2026-10-04,
 444,"How do you handle very large JSON payloads without blocking the browser or the server?",senior,js|node|performance,0,2,3,3,2026-10-04,
 445,"What are micro-frontends, and when are they worth the extra complexity compared with a modular monolith?",mid,micro-frontends|architecture,0,2,3,3,2026-10-06,https://martinfowler.com/articles/micro-frontends.html
-446,"How does Module Federation work (host, remote, `exposes`/`remotes`, shared singletons), and what breaks when shared dependency versions don't match?",senior,micro-frontends|architecture|js,0,1,3,3,2026-10-06,https://module-federation.io/
+446,"How does Module Federation work (host, remote, `exposes`/`remotes`, shared singletons), and what breaks when shared dependency versions don't match?",senior,micro-frontends|architecture|js|build-tools,0,1,3,3,2026-10-06,https://module-federation.io/
 447,"What are the ways to compose micro-frontends (build-time, route-level, server-side, runtime, iframes, Web Components), and what does each trade off?",senior,micro-frontends|architecture,0,1,3,3,2026-10-06,
-448,"How do you handle routing, shared state, styling isolation and design-system consistency across micro-frontends?",senior,micro-frontends|architecture|css,0,1,3,3,2026-10-06,
+448,"How do you handle routing, shared state, styling isolation and design-system consistency across micro-frontends?",senior,micro-frontends|architecture|css|design-systems,0,1,3,3,2026-10-06,
 449,"How do you deploy and version micro-frontend remotes independently without breaking the host?",senior,micro-frontends|architecture|ci-cd,0,1,2,3,2026-10-06,
+450,"How does Redux work (store, actions, reducers, `dispatch`), and what does Redux Toolkit change?",mid,react|state,2,4,3,2,2026-10-06,https://redux.js.org/introduction/why-rtk-is-redux-today
+451,"How do you handle async logic in Redux: thunks, `createAsyncThunk`, listener middleware or RTK Query?",mid,react|state,1,3,3,2,2026-10-06,https://redux-toolkit.js.org/rtk-query/overview
+452,"How do `useSelector` and memoized selectors (`createSelector`) work, and why can a selector re-render a component on every action?",senior,react|state|performance,0,2,3,3,2026-10-06,https://redux.js.org/usage/deriving-data-selectors
+453,"What does normalizing client state mean, how does `createEntityAdapter` help, and why does nested state cause bugs?",mid,state|architecture,1,3,3,2,2026-10-06,https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
+454,"How do you build a reusable component library for a design system in React (API design, theming, Storybook, versioning)?",mid,react|design-systems|architecture,1,3,4,3,2026-10-06,
+455,"What are design tokens, and how do you keep tokens in Figma and in code in sync?",mid,design-systems|css,1,3,3,2,2026-10-06,https://www.designtokens.org/
+456,"How do you turn a Figma design into a pixel-accurate, responsive component, and what do you do when the design is missing states?",mid,design-systems|css|react,2,4,3,1,2026-10-06,
+457,"Headless component libraries (Radix, React Aria, shadcn/ui) vs styled ones (MUI): what are the trade-offs for a design system?",senior,design-systems|react|accessibility,0,2,3,3,2026-10-06,
+458,"How does Tailwind CSS v4 work, and how do you manage component variants and class conflicts (`cva`, `tailwind-merge`)?",mid,css|design-systems,1,3,3,2,2026-10-06,https://tailwindcss.com/docs
+459,"What changed in WCAG 2.2, and what does the European Accessibility Act require from web apps?",senior,accessibility,0,2,3,3,2026-10-06,https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/
+460,"How do you ensure cross-browser compatibility (Browserslist, polyfills, feature detection, progressive enhancement), and how do you test it?",mid,browser|css|js,2,3,3,2,2026-10-06,https://web.dev/baseline
+461,"How do you mock API calls in frontend tests, and why is Mock Service Worker (MSW) often better than mocking `fetch`?",mid,testing|react,1,3,3,2,2026-10-06,https://mswjs.io/docs/
+462,"Jest vs Vitest: how do they differ, and how do module mocks, spies and fake timers work?",mid,testing|js,2,3,3,1,2026-10-06,https://vitest.dev/guide/mocking
+463,"How do you test custom hooks and components that depend on a Redux store, a router or a query client?",mid,testing|react|state,1,3,3,1,2026-10-06,https://redux.js.org/usage/writing-tests
+464,"How do you monitor a frontend app in production (error tracking, source maps, real-user performance monitoring)?",mid,browser|performance,1,3,3,3,2026-10-06,
+465,"What does a bundler do, and how do Vite and webpack differ (dev server, HMR, production builds)?",mid,build-tools|performance,2,3,3,2,2026-10-06,https://vite.dev/guide/why
+466,"What is tree shaking, what prevents it, and how do you find out what's making a bundle big?",mid,build-tools|performance|js,1,3,4,3,2026-10-06,
+467,"How would you structure a large React and TypeScript codebase (feature folders, module boundaries, shared UI, API layer)?",senior,react|architecture,0,2,4,3,2026-10-06,https://feature-sliced.design/
+468,"Which design patterns do you use in frontend JavaScript and TypeScript (observer, strategy, factory, adapter, facade), and where do they show up?",mid,js|typescript|architecture,1,3,3,2,2026-10-06,
+469,"How do you integrate a React app with a REST API: an API client layer, typed responses, errors, cancellation and retries?",mid,react|rest|typescript,2,4,3,2,2026-10-06,
+470,"How does Apollo Client's normalized cache work, and how do you update it after a mutation?",senior,graphql|react|caching,0,2,3,2,2026-10-06,https://www.apollographql.com/docs/react/caching/overview
+471,"How do React, Angular and Vue differ (rendering, reactivity, change detection, signals)?",mid,react|js|architecture,1,3,3,2,2026-10-06,
+472,"How do you internationalize a React app (message catalogs, ICU plurals, `Intl` formatting, lazy-loaded locales)?",mid,react|js,1,3,3,2,2026-10-06,https://formatjs.github.io/docs/core-concepts/icu-syntax/
+473,"How do you render charts and large datasets in React (SVG vs canvas vs WebGL, D3 or Highcharts, who owns the DOM)?",senior,react|performance,0,2,3,2,2026-10-06,
+474,"How does React Native differ from React for the web, and what does Expo give you?",mid,react,1,2,2,1,2026-10-06,https://reactnative.dev/docs/getting-started
+475,"How do you implement analytics events, A/B tests and GDPR consent in a frontend?",mid,browser|security,1,2,3,2,2026-10-06,
+476,"How do you use AI coding assistants (Copilot, Cursor, Claude Code) effectively, and how do you review AI-generated code?",mid,ai,2,3,4,4,2026-10-06,
+477,"How do you build a chat UI that streams LLM responses (SSE or streaming `fetch`, cancellation, rendering partial Markdown)?",mid,ai|react|network,1,3,3,3,2026-10-06,
+478,"What is retrieval-augmented generation (RAG), and how do embeddings and vector search work?",mid,ai|system-design,1,2,3,3,2026-10-06,
+479,"What is tool calling (function calling) in LLM APIs, and what does the Model Context Protocol (MCP) add?",mid,ai|architecture,1,2,3,3,2026-10-06,https://modelcontextprotocol.io/
+480,"What is an AI agent, and when would you build a fixed workflow instead of an autonomous agent?",senior,ai|architecture|system-design,0,1,3,3,2026-10-06,https://www.anthropic.com/engineering/building-effective-agents
+481,"What is prompt injection, and how do you secure a feature that sends user or document content to an LLM?",senior,ai|security|be-security,0,2,3,3,2026-10-06,https://genai.owasp.org/llm-top-10/
+482,"How do you test and evaluate LLM features when outputs are non-deterministic (evals, golden sets, LLM-as-judge)?",senior,ai|testing,0,1,3,3,2026-10-06,
+483,"What's the difference between prompt engineering and context engineering, and how do you manage the context window, tokens and cost?",mid,ai,1,2,3,3,2026-10-06,
+484,"What is the transactional outbox pattern, and what dual-write problem does it solve?",senior,architecture|system-design|sql,0,1,3,4,2026-10-06,https://microservices.io/patterns/data/transactional-outbox.html
+485,"How do Kafka partitions and consumer groups work, how do you keep events ordered, and how do you build idempotent consumers with retries and a DLQ in Node.js?",senior,architecture|system-design|node,0,1,3,4,2026-10-06,
+486,"What are the core ideas of Domain-Driven Design (ubiquitous language, bounded contexts, aggregates, domain events)?",senior,architecture,0,2,3,3,2026-10-06,
+487,"Prisma vs Drizzle vs raw SQL: how do you choose a data-access layer for a Node.js app, and what are common ORM pitfalls?",mid,node|sql,1,3,3,2,2026-10-06,
+488,"Django vs FastAPI: how do they differ, and when would you choose each?",mid,python|fastapi,1,2,2,1,2026-10-06,
+489,"How do you approach code review, both giving and receiving feedback?",mid,hr,2,4,4,3,2026-10-06,https://conventionalcomments.org/
+490,"How does Scrum work (accountabilities, events, artifacts), and how do you estimate work?",junior,hr,3,3,2,1,2026-10-06,https://scrumguides.org/scrum-guide.html
+491,"How do you handle ambiguous or incomplete requirements, and how do you push back on a feature you think doesn't serve users?",senior,hr,1,2,4,4,2026-10-06,
+492,"How do you make a React app SEO-friendly, and why is a client-rendered SPA a problem for SEO?",mid,nextjs|html|performance,1,3,3,2,2026-10-06,
+493,"Which UX principles do you check when implementing a design (Nielsen's heuristics, feedback, consistency, error prevention)?",mid,design-systems|accessibility,1,3,3,2,2026-10-06,https://www.nngroup.com/articles/ten-usability-heuristics/

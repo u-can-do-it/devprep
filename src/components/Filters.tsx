@@ -20,6 +20,7 @@ const GROUP_LABEL: Record<string, string> = {
   security: 'Security',
   infra: 'Infra and tooling',
   design: 'Architecture',
+  ai: 'AI',
   soft: 'Soft skills',
 };
 
