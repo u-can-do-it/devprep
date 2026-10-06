@@ -8,6 +8,7 @@ nextjs,Next.js,frontend
 browser,Browser,frontend
 accessibility,Accessibility,frontend
 performance,Performance,frontend
+micro-frontends,Micro-frontends,frontend
 node,Node.js,backend
 python,Python,backend
 fastapi,FastAPI,backend

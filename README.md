@@ -2,7 +2,7 @@
 
 **Live site: https://u-can-do-it.github.io/devprep/**
 
-Technical interview prep for full-stack developers: 444 questions with hints and Markdown answers,
+Technical interview prep for full-stack developers: 449 questions with hints and Markdown answers,
 filterable by tag, difficulty and how likely they are to come up at your interview level.
 
 No backend and no accounts. Questions live in this repo as CSV and Markdown; you edit them locally and push.
