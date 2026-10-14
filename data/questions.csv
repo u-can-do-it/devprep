@@ -500,3 +500,14 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 499,"Tell me about a time an AI coding tool gave you plausible but wrong code. How did you catch it?",mid,hr|ai,1,3,3,3,2026-10-14,
 500,"Describe the most complex TypeScript type you've written. What problem did it solve?",senior,hr|typescript,0,2,3,3,2026-10-14,
 501,"Why do you want to do AI training work: reviewing, writing and evaluating code for AI models?",junior,hr|ai,0,1,1,1,2026-10-14,
+502,"Build an autocomplete (typeahead) component in React: debounce the input, cancel stale requests, and support keyboard navigation and the ARIA combobox pattern.",mid,react|performance|accessibility,1,4,4,2,2026-10-14,https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+503,"Build a data table in React with sorting, filtering and pagination. When do you move that work to the server, and which table state belongs in the URL?",mid,react|state|performance,1,4,3,2,2026-10-14,
+504,"What is roving `tabindex`, and how do you implement keyboard navigation for composite widgets like tabs, menus and listboxes?",mid,accessibility|react,0,2,3,2,2026-10-14,https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+505,"Which frontend security concerns are specific to a banking client portal (session timeouts, sensitive data in URLs and logs, step-up authentication, third-party scripts)?",senior,fe-security|auth|security,0,2,3,3,2026-10-14,
+506,"How do you containerize a React SPA and serve it with nginx, and how do you inject configuration at runtime so the same image runs in every environment?",mid,docker|ci-cd|build-tools,1,3,3,2,2026-10-14,
+507,"Karat-style coding: given badge records `[name, action]` and `[name, time]`, find who entered without exiting (and vice versa), then who badged in 3+ times within one hour. What's the complexity?",mid,algorithms|js,2,3,2,1,2026-10-14,
+508,"Merge overlapping intervals, then find the free time slots shared by several people's calendars. How many meeting rooms does a set of meetings need?",mid,algorithms|js,2,3,2,1,2026-10-14,
+509,"What is Big-O notation, and what is the time complexity of common JavaScript operations (`includes`, `Set.has`, `Map.get`, `sort`, `shift`, spread in a loop)?",junior,algorithms|js|performance,4,3,2,1,2026-10-14,
+510,"Tell me about a time you spotted a usability, accessibility or consistency problem in a design before implementing it. How did you raise it with the designer?",mid,hr|design-systems,1,3,3,2,2026-10-14,
+511,"Implement the custom hooks `useDebounce`, `usePrevious` and `useLocalStorage` in TypeScript. Which edge cases do they need to handle?",mid,react|typescript,2,4,3,1,2026-10-14,
+512,"How do you set up routing in a React SPA with React Router: nested routes and layouts, protected routes, lazy-loaded pages and data loaders?",mid,react|auth,2,4,3,1,2026-10-14,https://reactrouter.com/
