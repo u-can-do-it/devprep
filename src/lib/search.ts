@@ -35,9 +35,28 @@ export function buildEntry(q: Question, tagLabels: string[]): SearchEntry {
   return { fields, words };
 }
 
-/** Search terms: lowercased, deduplicated; single characters are ignored (they match nearly everything). */
+/** `#27` or `#494-501` as a whole token (separated by spaces or commas) selects questions by id. */
+const ID_TOKEN = /(?<![^\s,])#(\d+)(?:-#?(\d+))?(?![^\s,])/g;
+
+export type IdRange = [from: number, to: number];
+
+/** Id ranges typed in the search box; empty when there are none. */
+export function parseIds(query: string): IdRange[] {
+  return [...query.matchAll(ID_TOKEN)].map((m) => {
+    const a = Number(m[1]);
+    const b = Number(m[2] ?? m[1]);
+    return [Math.min(a, b), Math.max(a, b)];
+  });
+}
+
+export const inRanges = (id: number, ranges: IdRange[]) => ranges.some(([from, to]) => id >= from && id <= to);
+
+/**
+ * Search terms: lowercased, deduplicated; single characters are ignored (they match nearly everything).
+ * Id tokens are left out; see `parseIds`.
+ */
 export function parseQuery(query: string): string[] {
-  return [...new Set(normalize(query).split(/\s+/).filter((t) => t.length > 1))];
+  return [...new Set(normalize(query.replace(ID_TOKEN, ' ')).split(/\s+/).filter((t) => t.length > 1))];
 }
 
 /**

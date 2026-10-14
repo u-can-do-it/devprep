@@ -55,7 +55,7 @@ export function Filters() {
         <input
           id="search"
           type="search"
-          placeholder="closure, CORS, JWT"
+          placeholder="closure, CORS, #27, #494-501"
           value={filters.search}
           onInput={(e) => setFilters('search', e.currentTarget.value)}
         />

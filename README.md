@@ -17,7 +17,7 @@ pnpm validate      # only check data/
 ## Features
 
 - **Filters:** full-text search (question, hints and answer), difficulty, tags (match any or all), minimum importance, progress
-- **Search:** matches the question, tags, hints and answer. Words that don't appear anywhere as typed are matched with typo tolerance (`promsie` finds Promise). Results matching the question come first, then ones that match only in hints or answers (labelled "Matched in answer"). Matches are highlighted.
+- **Search:** matches the question, tags, hints and answer. Words that don't appear anywhere as typed are matched with typo tolerance (`promsie` finds Promise). Results matching the question come first, then ones that match only in hints or answers (labelled "Matched in answer"). Matches are highlighted. Type `#27` to jump to a question by number, `#23 #24 #494` for several, or `#494-501` for a range; numbers combine with words (`#1-100 promise`).
 - **Sorting:** importance, difficulty, date added
 - **Preparing for:** pick the interview level (junior, mid, senior, master). Importance, sorting and practice weighting follow it.
 - **Hints and answers** are hidden until you open them.

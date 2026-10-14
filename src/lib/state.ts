@@ -3,7 +3,7 @@ import { createStore } from 'solid-js/store';
 import { loadRaw } from './api.ts';
 import { LEVELS, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
 import { mergeProgress, progress } from './progress.ts';
-import { buildEntry, matchEntry, parseQuery, typoTerms, type SearchMatch } from './search.ts';
+import { buildEntry, inRanges, matchEntry, parseIds, parseQuery, typoTerms, type SearchMatch } from './search.ts';
 
 // ---------- data ----------
 
@@ -177,6 +177,7 @@ export const filtered = createRoot(() =>
   createMemo(() => {
     const f = filters;
     const searching = parseQuery(searchQuery()).length > 0;
+    const ids = parseIds(searchQuery());
     const matches = searchMatches();
     const prog = progress();
     const t = target();
@@ -193,6 +194,7 @@ export const filtered = createRoot(() =>
       if (f.progress === 'review' && status !== 'review') return false;
       if (f.progress === 'known' && status !== 'known') return false;
       if (f.progress === 'hide-known' && status === 'known') return false;
+      if (ids.length && !inRanges(q.id, ids)) return false;
       if (searching && !matches.get(q.id)) return false;
       return true;
     });
