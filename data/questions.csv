@@ -492,3 +492,11 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 491,"How do you handle ambiguous or incomplete requirements, and how do you push back on a feature you think doesn't serve users?",senior,hr,1,2,4,4,2026-10-06,
 492,"How do you make a React app SEO-friendly, and why is a client-rendered SPA a problem for SEO?",mid,nextjs|html|performance,1,3,3,2,2026-10-06,
 493,"Which UX principles do you check when implementing a design (Nielsen's heuristics, feedback, consistency, error prevention)?",mid,design-systems|accessibility,1,3,3,2,2026-10-06,https://www.nngroup.com/articles/ten-usability-heuristics/
+494,"Why does `Object.keys(obj)` return `string[]` instead of `(keyof T)[]` in TypeScript, and how do you iterate over an object's keys type-safely?",mid,typescript|js,1,3,3,1,2026-10-14,
+495,"What are distributive conditional types, and why does `Omit<A | B, 'x'>` lose the union?",senior,typescript,0,1,3,3,2026-10-14,https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+496,"What's wrong with this AI-generated effect, and how would you fix it: `useEffect(() => { fetch('/api/users/' + id).then((r) => r.json()).then((u: User) => setUser(u)); }, [id])`?",mid,react|typescript,1,3,3,2,2026-10-14,
+497,"What are the most common type-safety mistakes in AI-generated TypeScript, and how do you spot them in review?",senior,typescript|ai,0,2,3,3,2026-10-14,
+498,"How do you evaluate an AI model's answer to a coding prompt and write useful feedback on it?",mid,ai|hr,0,1,2,2,2026-10-14,
+499,"Tell me about a time an AI coding tool gave you plausible but wrong code. How did you catch it?",mid,hr|ai,1,3,3,3,2026-10-14,
+500,"Describe the most complex TypeScript type you've written. What problem did it solve?",senior,hr|typescript,0,2,3,3,2026-10-14,
+501,"Why do you want to do AI training work: reviewing, writing and evaluating code for AI models?",junior,hr|ai,0,1,1,1,2026-10-14,
