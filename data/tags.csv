@@ -33,5 +33,6 @@ build-tools,Build tools,infra
 architecture,Architecture,design
 system-design,System design,design
 ai,AI and LLMs,ai
+basics,Basics (no libraries),coding
 algorithms,Algorithms,coding
 hr,HR,soft
