@@ -64,7 +64,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 63,"What are streams in Node.js and how does backpressure work?",senior,node|performance,0,2,4,3,2026-10-04,https://nodejs.org/api/stream.html
 64,"When would you use worker threads vs the cluster module vs `child_process`?",senior,node|performance|architecture,0,2,4,3,2026-10-04,https://nodejs.org/api/worker_threads.html
 65,"What does ""blocking the event loop"" mean in Node.js and how do you avoid it?",junior,js|node|performance,4,4,3,1,2026-10-04,
-66,"How do you handle errors in async Node.js code, and what happens on an unhandled promise rejection?",junior,js|node,4,3,2,1,2026-10-04,
+66,"How do you handle errors in an Express or Fastify API: async handlers, a central error handler, operational vs programmer errors, and what happens on an unhandled rejection in Node?",mid,js|node|rest,3,4,2,1,2026-10-04,
 67,"How does middleware work in Express (and how does Fastify differ)?",junior,node|rest,4,3,1,0,2026-10-04,
 68,"How do you manage environment configuration and secrets in a Node.js app?",junior,node|security|be-security,3,3,2,0,2026-10-04,
 69,"How would you diagnose and fix a memory leak in a production Node.js service?",master,node|performance,0,1,3,4,2026-10-04,
@@ -388,7 +388,7 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 387,"How do HTTP keep-alive and connection pooling work, and what goes wrong when they're misconfigured?",senior,network|performance|node,0,2,4,3,2026-10-04,
 388,"What does code coverage measure, and why is 100% coverage not the same as well-tested code?",junior,testing,3,3,3,2,2026-10-04,
 389,"What makes a good unit test?",junior,testing,4,3,2,1,2026-10-04,
-390,"How do pytest fixtures work? Explain scopes, `yield` teardown, `conftest.py` and parametrization.",junior,testing|python,3,3,2,1,2026-10-04,https://docs.pytest.org/en/stable/how-to/fixtures.html
+390,"How do you mock and patch in Python tests (`unittest.mock.patch`, `MagicMock`, `AsyncMock`, `monkeypatch`, `autospec`), and what are the pitfalls of over-mocking?",mid,testing|python,2,4,3,1,2026-10-20,https://docs.python.org/3/library/unittest.mock.html
 391,"Playwright vs Cypress: how do they differ, and how do you keep end-to-end tests reliable?",mid,testing|js,1,3,3,2,2026-10-04,
 392,"What is contract testing, and when would you use consumer-driven contracts (e.g. Pact)?",senior,testing|architecture,0,2,3,3,2026-10-04,https://docs.pact.io/
 393,"How would you load-test an API? Explain load, stress, spike and soak tests.",senior,testing|performance,0,2,3,3,2026-10-04,
@@ -519,3 +519,23 @@ id,question,level,tags,imp_junior,imp_mid,imp_senior,imp_master,added,source
 518,"Live coding: filter a list with a search input, then change it to a debounced search that calls the API.",junior,react|basics|performance,3,4,3,2,2026-10-15,
 519,"Live coding: build a form with controlled inputs that validates, POSTs JSON, disables the button while sending and shows server errors.",junior,react|basics|html,3,4,3,1,2026-10-15,
 520,"Live coding: build a counter and a todo list (add, toggle, delete, filter) using only `useState`.",junior,react|basics,4,3,2,1,2026-10-15,
+521,"What is rate limiting, what does it protect against, and how should an API respond and a client behave when the limit is hit (`429`, `Retry-After`, backoff)?",mid,security|be-security|rest,2,4,3,2,2026-10-20,https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/429
+522,"How do you implement roles and permissions (RBAC) in a React app: route guards, permission-based UI, and where the roles come from? What does it protect, and what doesn't it?",mid,react|auth|fe-security,2,4,3,2,2026-10-20,
+523,"Explain the `Set-Cookie` attributes `HttpOnly`, `Secure`, `SameSite`, `Domain`, `Path`, `Expires`/`Max-Age` and the `__Host-` prefix. How should a session cookie be set, and what does each flag defend against?",mid,browser|fe-security|auth|security,3,4,3,1,2026-10-20,https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie
+524,"What is broken function-level authorization (a regular user calling an admin endpoint), how does it differ from IDOR, and how do you enforce authorization consistently in a Node or FastAPI API?",mid,auth|security|be-security|node|fastapi,2,4,4,2,2026-10-20,https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/
+525,"What security risks come with AI coding agents that read files, run commands and call tools (prompt injection through repo content, secret leakage, destructive commands, malicious MCP servers), and how do you work with them safely in a team?",senior,ai|security,1,3,4,4,2026-10-20,https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/
+526,"Which security problems are typical of AI-generated code (hallucinated packages, insecure defaults, leaked secrets, outdated dependencies, licensing), and how does a team catch them before merge?",mid,ai|security|ci-cd,2,4,4,3,2026-10-20,
+527,"Which recent ECMAScript features (ES2023-ES2025) do you actually use: `toSorted`/`with`, `findLast`, `Object.groupBy`, `Promise.withResolvers`, Set methods, iterator helpers, and which newer ones (`using`, `Array.fromAsync`, Temporal) are safe to use without a polyfill?",mid,js,2,3,2,1,2026-10-20,
+528,"How do user-defined type guards (`x is T`) and assertion functions (`asserts x is T`) work in TypeScript, why are they unsafe, and how do you make them safe?",mid,typescript,2,4,3,1,2026-10-20,https://www.typescriptlang.org/docs/handbook/2/narrowing.html
+529,"Zustand vs Jotai vs Redux Toolkit: how do their store models and re-render granularity differ, and how do you choose for a React app?",mid,react|state,2,4,3,1,2026-10-20,
+530,"How do query keys, `staleTime`/`gcTime`, invalidation, request deduplication and optimistic updates work in TanStack Query?",mid,react|state|caching,2,4,3,1,2026-10-20,https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults
+531,"What is margin collapsing, when does it happen, and how does a block formatting context (`display: flow-root`) stop it and contain floats?",junior,css,3,3,1,0,2026-10-20,https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing
+532,"Implement a typed `EventEmitter` class (`on`, `off`, `once`, `emit`) in JavaScript or TypeScript. Which edge cases matter?",junior,js|basics,3,3,2,1,2026-10-20,
+533,"Classic coding warm-ups in JavaScript: valid brackets with a stack, two-sum with a `Map`, grouping anagrams and the first non-repeating character. What are the complexities?",junior,algorithms|js|basics,4,3,2,1,2026-10-20,
+534,"Flatten a nested array, build a tree from a flat list of `{id, parentId}` rows in O(n), and flatten it back. How do you handle orphans, cycles and deep recursion?",mid,algorithms|js|basics,3,4,3,1,2026-10-20,
+535,"How do you run background jobs in Node.js (BullMQ, Postgres-backed queues, SQS): retries with backoff, idempotency, scheduling with replicas and graceful shutdown?",mid,node|architecture,1,3,3,2,2026-10-20,https://docs.bullmq.io/
+536,"How do you get reliable structured output (typed JSON) from an LLM: JSON mode, schema-constrained output and tool schemas, validation with Zod or Pydantic, retries?",mid,ai|typescript|python,1,3,3,2,2026-10-20,
+537,"What is technical debt, how do you find and prioritise it, and how do you convince product to pay it down?",mid,hr|architecture,2,4,4,3,2026-10-20,https://martinfowler.com/bliki/TechnicalDebtQuadrant.html
+538,"How do you approach a frontend system design interview (e.g. design a product listing page): requirements, architecture, data model, API, state and optimisations?",senior,system-design|react|architecture,0,2,4,4,2026-10-20,
+539,"Live coding: infinite scroll with `IntersectionObserver` and cursor pagination in React. How do you avoid duplicate requests, stale closures and an inaccessible list?",mid,react|basics|performance|accessibility,2,4,3,1,2026-10-20,
+540,"Live coding without a framework: render a list from state, add and remove items, filter it, using only DOM APIs (`querySelector`, `createElement`, `textContent`, `DocumentFragment`, event delegation).",junior,js|browser|basics,4,3,1,0,2026-10-20,

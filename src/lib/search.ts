@@ -35,8 +35,11 @@ export function buildEntry(q: Question, tagLabels: string[]): SearchEntry {
   return { fields, words };
 }
 
-/** `#27` or `#494-501` as a whole token (separated by spaces or commas) selects questions by id. */
-const ID_TOKEN = /(?<![^\s,])#(\d+)(?:-#?(\d+))?(?![^\s,])/g;
+/**
+ * `#27` or a range as a whole token (separated by spaces or commas) selects questions by id.
+ * Ranges accept spaces, a second `#` and en/em dashes: `#494-501`, `#494 - #501`, `#494–501`.
+ */
+const ID_TOKEN = /(?<![^\s,])#(\d+)(?:\s*[-–—]\s*#?(\d+))?(?![^\s,])/g;
 
 export type IdRange = [from: number, to: number];
 
