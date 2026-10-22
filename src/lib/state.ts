@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createResource, createRoot, createSignal, on } from 'solid-js';
+import { batch, createEffect, createMemo, createResource, createRoot, createSignal, on } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { loadRaw } from './api.ts';
 import { LEVELS, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
@@ -214,6 +214,22 @@ export const filtered = createRoot(() =>
     return list.sort((a, b) => (searching ? tier(a) - tier(b) : 0) || cmp[f.sort](a, b));
   }),
 );
+
+// ---------- jump to a question ----------
+
+/** A question the list should render and scroll to; the list clears it once done. */
+export const [jumpTarget, setJumpTarget] = createSignal<number | null>(null);
+
+/** Show one category in the list and scroll to a question in it (used by bookmarks). */
+export function jumpTo(id: number, tag: string) {
+  batch(() => {
+    setFilters({ ...DEFAULT_FILTERS, sort: filters.sort, tags: [tag] });
+    // Skip the search debounce so the list is already filtered when it looks for the question.
+    setSearchQuery('');
+    setView('list');
+    setJumpTarget(id);
+  });
+}
 
 // ---------- editor ----------
 

@@ -1,11 +1,13 @@
 import { createMemo, createSignal, For, Show } from 'solid-js';
 import { isDev, saveProgressToRepo } from '../lib/api.ts';
+import { bookmarks, removeBookmark } from '../lib/bookmarks.ts';
 import { IMPORTANCE_LABEL, LEVELS, LEVEL_LABEL, parseProgress, serializeProgress } from '../lib/format.ts';
 import { mergeProgress, progress } from '../lib/progress.ts';
 import {
   filtered,
   filters,
   hasActiveFilters,
+  jumpTo,
   questions,
   resetFilters,
   setFilters,
@@ -61,6 +63,8 @@ export function Filters() {
           onInput={(e) => setFilters('search', e.currentTarget.value)}
         />
       </div>
+
+      <BookmarkList />
 
       <div class="section">
         <div class="section-title">Difficulty</div>
@@ -142,6 +146,43 @@ export function Filters() {
 
       <ProgressPanel />
     </div>
+  );
+}
+
+/** One bookmark per category, in sidebar tag order. Hidden until something is bookmarked. */
+function BookmarkList() {
+  const list = createMemo(() => {
+    const marks = bookmarks();
+    const byId = new Map(questions().map((q) => [q.id, q]));
+    return tags().flatMap((t) => {
+      const q = marks[t.id] === undefined ? undefined : byId.get(marks[t.id]);
+      return q ? [{ tag: t, q }] : [];
+    });
+  });
+
+  return (
+    <Show when={list().length}>
+      <div class="section">
+        <div class="section-title">Bookmarks</div>
+        <ul class="bookmarks">
+          <For each={list()}>
+            {({ tag, q }) => (
+              <li>
+                <button class="bookmark-link" onClick={() => jumpTo(q.id, tag.id)} title={`Show ${tag.label} and scroll to #${q.id}`}>
+                  <span class="bookmark-tag">{tag.label}</span>
+                  <span class="bookmark-q">
+                    #{q.id} {q.question.replace(/[`*_]/g, '')}
+                  </span>
+                </button>
+                <button class="ghost icon" onClick={() => removeBookmark(tag.id)} aria-label={`Remove the ${tag.label} bookmark`}>
+                  ×
+                </button>
+              </li>
+            )}
+          </For>
+        </ul>
+      </div>
+    </Show>
   );
 }
 

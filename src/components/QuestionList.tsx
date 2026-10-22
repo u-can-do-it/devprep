@@ -6,11 +6,13 @@ import {
   filtered,
   filters,
   hasActiveFilters,
+  jumpTarget,
   questions,
   resetFilters,
   searchMatches,
   setEditing,
   setFilters,
+  setJumpTarget,
   target,
   type SortKey,
 } from '../lib/state.ts';
@@ -26,19 +28,29 @@ export function QuestionList() {
   const filterKey = () => JSON.stringify(filters) + target();
   createEffect(on(filterKey, () => setLimit(PAGE), { defer: true }));
 
+  /** Make sure the card is rendered, then scroll to it. */
+  const reveal = (id: number) => {
+    const idx = filtered().findIndex((q) => q.id === id);
+    if (idx < 0) return;
+    if (idx >= limit()) setLimit(idx + PAGE);
+    requestAnimationFrame(() => document.getElementById(`q-${id}`)?.scrollIntoView());
+  };
+  createEffect(() => {
+    const id = jumpTarget();
+    if (id === null) return;
+    reveal(id);
+    setJumpTarget(null);
+  });
+
   // Render cards in pages; load more as the bottom comes into view.
   onMount(() => {
     const io = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && limit() < filtered().length) setLimit((n) => n + PAGE);
     });
     io.observe(sentinel);
-    // Deep link to #q-<id>: make sure the card is rendered, then scroll to it.
+    // Deep link to #q-<id>.
     const m = location.hash.match(/^#q-(\d+)$/);
-    if (m) {
-      const idx = filtered().findIndex((q) => q.id === Number(m[1]));
-      if (idx >= limit()) setLimit(idx + PAGE);
-      requestAnimationFrame(() => document.getElementById(`q-${m[1]}`)?.scrollIntoView());
-    }
+    if (m) reveal(Number(m[1]));
     onCleanup(() => io.disconnect());
   });
 

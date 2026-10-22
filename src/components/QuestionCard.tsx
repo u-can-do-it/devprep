@@ -1,15 +1,18 @@
 import { createSignal, For, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL, type Question } from '../lib/format.ts';
+import { bookmarks, categoryOf, isBookmarked, toggleBookmark } from '../lib/bookmarks.ts';
+import { isOpen, setOpen } from '../lib/expanded.ts';
 import { statusOf, toggleStatus } from '../lib/progress.ts';
-import { filters, importanceOf, searchMatches, setEditing, target, toggleIn } from '../lib/state.ts';
+import { filters, importanceOf, searchMatches, setEditing, tagById, target, toggleIn } from '../lib/state.ts';
 import { ImportanceMeter, LevelBadge, TagBadge } from './Badges.tsx';
 import { InlineMarkdown, Markdown } from './Markdown.tsx';
 
 export function QuestionCard(props: { q: Question }) {
   // Render Markdown only once a section is first opened; most cards are never expanded.
-  const [hintsSeen, setHintsSeen] = createSignal(false);
-  const [answerSeen, setAnswerSeen] = createSignal(false);
+  // Sections left open last time start open (open/closed is remembered per question).
+  const [hintsSeen, setHintsSeen] = createSignal(isOpen(props.q.id, 'hints'));
+  const [answerSeen, setAnswerSeen] = createSignal(isOpen(props.q.id, 'answer'));
   const status = () => statusOf(props.q.id);
   const match = () => searchMatches().get(props.q.id) ?? undefined;
   const marks = () => match()?.marks;
@@ -17,10 +20,18 @@ export function QuestionCard(props: { q: Question }) {
     const fields = match()?.tier === 2 ? match()!.matchedIn : [];
     return fields.length ? `Matched in ${fields.join(', ')}` : '';
   };
+  const bookmarked = () => isBookmarked(props.q);
+  const bookmarkTitle = () => {
+    const category = categoryOf(props.q);
+    const label = tagById().get(category)?.label ?? category;
+    if (bookmarked()) return `Remove the ${label} bookmark`;
+    const other = bookmarks()[category];
+    return `Bookmark this question in ${label}${other !== undefined ? ` (moves it from #${other})` : ''}`;
+  };
   const breakdown = () => LEVELS.map((l) => `${LEVEL_LABEL[l]} ${props.q.importance[l]}`).join(' · ');
 
   return (
-    <article id={`q-${props.q.id}`} class="card" classList={{ known: status() === 'known', review: status() === 'review' }}>
+    <article id={`q-${props.q.id}`} class="card" classList={{ known: status() === 'known', review: status() === 'review', bookmarked: bookmarked() }}>
       <div class="card-meta">
         <LevelBadge level={props.q.level} />
         <For each={props.q.tags}>
@@ -52,7 +63,15 @@ export function QuestionCard(props: { q: Question }) {
 
       <div class="reveals">
         <Show when={props.q.hints.length}>
-          <details class="reveal" onToggle={(e) => e.currentTarget.open && setHintsSeen(true)}>
+          <details
+            class="reveal"
+            open={isOpen(props.q.id, 'hints')}
+            onToggle={(e) => {
+              const open = e.currentTarget.open;
+              setOpen(props.q.id, 'hints', open);
+              if (open) setHintsSeen(true);
+            }}
+          >
             <summary>Hints ({props.q.hints.length})</summary>
             <Show when={hintsSeen()}>
               <ol class="hints">
@@ -67,7 +86,15 @@ export function QuestionCard(props: { q: Question }) {
             </Show>
           </details>
         </Show>
-        <details class="reveal" onToggle={(e) => e.currentTarget.open && setAnswerSeen(true)}>
+        <details
+          class="reveal"
+          open={isOpen(props.q.id, 'answer')}
+          onToggle={(e) => {
+            const open = e.currentTarget.open;
+            setOpen(props.q.id, 'answer', open);
+            if (open) setAnswerSeen(true);
+          }}
+        >
           <summary>Show answer</summary>
           <Show when={answerSeen()}>
             <Markdown src={props.q.answer} marks={marks()} />
@@ -86,6 +113,11 @@ export function QuestionCard(props: { q: Question }) {
         >
           ↻ Review later
         </button>
+        <Show when={categoryOf(props.q)}>
+          <button class="bookmark" aria-pressed={bookmarked()} title={bookmarkTitle()} onClick={() => toggleBookmark(props.q)}>
+            {bookmarked() ? '★ Bookmarked' : '☆ Bookmark'}
+          </button>
+        </Show>
         <span class="spacer" />
         <Show when={isDev}>
           <button class="ghost" onClick={() => setEditing(props.q.id)}>
