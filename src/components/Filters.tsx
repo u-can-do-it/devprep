@@ -1,4 +1,4 @@
-import { createMemo, createSignal, For, Show } from 'solid-js';
+import { createEffect, createMemo, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
 import { isDev, saveProgressToRepo } from '../lib/api.ts';
 import { bookmarks, removeBookmark } from '../lib/bookmarks.ts';
 import { IMPORTANCE_LABEL, LEVELS, LEVEL_LABEL, parseProgress, serializeProgress } from '../lib/format.ts';
@@ -44,6 +44,25 @@ export function Filters() {
     return [...out.entries()];
   });
 
+  // The search box grows with its content, so long queries like `#476 #479 #541-559` stay readable.
+  let searchEl!: HTMLTextAreaElement;
+  const fitSearch = () => {
+    searchEl.style.height = 'auto';
+    searchEl.style.height = `${searchEl.scrollHeight + searchEl.offsetHeight - searchEl.clientHeight}px`;
+  };
+  createEffect(on(() => filters.search, fitSearch));
+  onMount(() => {
+    // Re-fit when the width changes (window resize, the mobile sidebar opening), not on our own height changes.
+    let width = 0;
+    const ro = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width === width) return;
+      width = entry.contentRect.width;
+      fitSearch();
+    });
+    ro.observe(searchEl);
+    onCleanup(() => ro.disconnect());
+  });
+
   return (
     <div>
       <div class="section">
@@ -55,12 +74,21 @@ export function Filters() {
             </button>
           </Show>
         </div>
-        <input
+        <textarea
           id="search"
-          type="search"
+          ref={searchEl}
+          class="search"
+          rows={1}
+          enterkeyhint="search"
+          spellcheck={false}
           placeholder="closure, CORS, #27, #494-501"
           value={filters.search}
           onInput={(e) => setFilters('search', e.currentTarget.value)}
+          onKeyDown={(e) => {
+            // Still a one-line search: Enter adds no line break, Escape clears like a native search input.
+            if (e.key === 'Enter') e.preventDefault();
+            else if (e.key === 'Escape' && filters.search) setFilters('search', '');
+          }}
         />
       </div>
 

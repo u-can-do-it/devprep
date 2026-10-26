@@ -161,6 +161,11 @@ input[type='text'], input[type='search'], input[type='date'], input[type='url'],
   padding: 0 var(--space-2-5); height: var(--control-h-lg); font-size: var(--text-base); width: 100%;
 }
 textarea { padding: var(--space-2) var(--space-2-5); height: auto; resize: vertical; line-height: var(--leading-snug); }
+/* Search box: one line is as tall as the other inputs; longer queries wrap and the box grows (Filters.tsx). */
+textarea.search {
+  resize: none; overflow: hidden; overflow-wrap: anywhere; min-height: var(--control-h-lg);
+  padding-block: calc((var(--control-h-lg) - 2 * var(--border-w) - 1lh) / 2);
+}
 input[type='range'] { width: 100%; accent-color: var(--accent); }
 .icon-svg { width: var(--icon-sm); height: var(--icon-sm); }
 
