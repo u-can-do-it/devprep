@@ -14,6 +14,8 @@ design-systems,Design systems,frontend
 node,Node.js,backend
 python,Python,backend
 fastapi,FastAPI,backend
+csharp,C#,backend
+dotnet,.NET,backend
 rest,REST,backend
 graphql,GraphQL,backend
 sql,SQL,backend

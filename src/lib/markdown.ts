@@ -1,6 +1,7 @@
 import { Marked, type Tokens } from 'marked';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
+import csharp from 'highlight.js/lib/languages/csharp';
 import css from 'highlight.js/lib/languages/css';
 import dockerfile from 'highlight.js/lib/languages/dockerfile';
 import graphql from 'highlight.js/lib/languages/graphql';
@@ -17,7 +18,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
 import yaml from 'highlight.js/lib/languages/yaml';
 
-const languages = { bash, css, dockerfile, graphql, http, ini, javascript, json, lua, nginx, plaintext, python, sql, typescript, xml, yaml };
+const languages = { bash, csharp, css, dockerfile, graphql, http, ini, javascript, json, lua, nginx, plaintext, python, sql, typescript, xml, yaml };
 for (const [name, lang] of Object.entries(languages)) hljs.registerLanguage(name, lang);
 hljs.registerAliases(['jsx'], { languageName: 'javascript' });
 hljs.registerAliases(['tsx'], { languageName: 'typescript' });
