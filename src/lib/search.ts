@@ -38,8 +38,10 @@ export function buildEntry(q: Question, tagLabels: string[]): SearchEntry {
 /**
  * `#27` or a range as a whole token (separated by spaces or commas) selects questions by id.
  * Ranges accept spaces, a second `#` and en/em dashes: `#494-501`, `#494 - #501`, `#494–501`.
+ * Quotes, backticks and brackets around a token are ignored, so ids pasted from Markdown or
+ * prose (`` `#616-630` ``, `(#27)`, `#494.`) still work.
  */
-const ID_TOKEN = /(?<![^\s,])#(\d+)(?:\s*[-–—]\s*#?(\d+))?(?![^\s,])/g;
+const ID_TOKEN = /(?<![^\s,])[`'"“”‘’(\[]*#(\d+)(?:\s*[-–—]\s*#?(\d+))?[`'"“”‘’)\].,;:]*(?![^\s,])/g;
 
 export type IdRange = [from: number, to: number];
 
