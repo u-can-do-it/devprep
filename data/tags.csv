@@ -30,6 +30,7 @@ ci-cd,CI/CD,infra
 docker,Docker,infra
 cloud,Cloud,infra
 git,Git,infra
+linux,Linux and terminal,infra
 testing,Testing,infra
 build-tools,Build tools,infra
 architecture,Architecture,design
