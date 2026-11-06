@@ -33,9 +33,14 @@ export function Filters() {
     for (const q of questions()) c[q.level] = (c[q.level] ?? 0) + 1;
     return c;
   });
+  // Tag counts follow the difficulty filter, so they say how many questions picking the tag would add.
   const tagCounts = createMemo(() => {
     const c: Record<string, number> = {};
-    for (const q of questions()) for (const t of q.tags) c[t] = (c[t] ?? 0) + 1;
+    const levels = filters.levels;
+    for (const q of questions()) {
+      if (levels.length && !levels.includes(q.level)) continue;
+      for (const t of q.tags) c[t] = (c[t] ?? 0) + 1;
+    }
     return c;
   });
   const groups = createMemo(() => {
@@ -142,7 +147,12 @@ export function Filters() {
               <div class="chips">
                 <For each={list}>
                   {(t) => (
-                    <button class="chip" aria-pressed={filters.tags.includes(t.id)} onClick={() => toggleIn('tags', t.id)}>
+                    <button
+                      class="chip"
+                      classList={{ empty: !tagCounts()[t.id] }}
+                      aria-pressed={filters.tags.includes(t.id)}
+                      onClick={() => toggleIn('tags', t.id)}
+                    >
                       {t.label} <span class="n">{tagCounts()[t.id] ?? 0}</span>
                     </button>
                   )}
