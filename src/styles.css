@@ -90,6 +90,7 @@
   --accent-text: light-dark(#1d4ed8, #9bbcff);
   --on-accent: #ffffff;
   --backdrop: rgb(0 0 0 / 0.45);
+  --shadow-float: 0 var(--space-1) var(--space-4) light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.4));
 
   --junior: light-dark(#157347, #6fd49a);
   --junior-bg: light-dark(#e3f6ea, #13301f);
@@ -259,6 +260,25 @@ main { padding: var(--space-5) var(--space-6) var(--space-16); min-width: 0; }
 .toolbar .toggle { color: var(--text-2); cursor: pointer; user-select: none; }
 .toggle input { accent-color: var(--accent); width: var(--space-4); height: var(--space-4); margin: 0; }
 .sentinel { height: var(--border-w); }
+/* Floating "12 / 87" position pill (ListPosition.tsx) */
+.list-position {
+  position: fixed; right: var(--space-5); bottom: var(--space-5); z-index: 5;
+  display: grid; grid-template-columns: auto auto; align-items: center; column-gap: var(--space-1);
+  padding: var(--space-1) var(--space-1) var(--space-1-5) var(--space-3);
+  background: var(--surface); border: var(--border-w) solid var(--border-strong); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  font-size: var(--text-md); color: var(--text-3); font-variant-numeric: tabular-nums;
+}
+.list-position-count b { color: var(--text); font-weight: var(--weight-semibold); }
+.list-position button { height: var(--control-h-sm); font-size: var(--text-base); }
+.list-position-bar {
+  grid-column: 1 / -1; height: var(--progress-h); margin: var(--space-1) var(--space-2) 0 0;
+  background: var(--surface-2); border-radius: var(--radius-full); overflow: hidden;
+}
+.list-position-bar div { height: 100%; background: var(--accent); transition: width var(--duration-fast); }
+@media (max-width: 53.75em) {
+  .list-position { right: var(--space-3); bottom: var(--space-3); }
+}
 
 .card {
   background: var(--surface); border: var(--border-w) solid var(--border); border-radius: var(--radius-lg);

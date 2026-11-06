@@ -16,6 +16,7 @@ import {
   target,
   type SortKey,
 } from '../lib/state.ts';
+import { ListPosition } from './ListPosition.tsx';
 import { QuestionCard } from './QuestionCard.tsx';
 
 const PAGE = 40;
@@ -114,6 +115,7 @@ export function QuestionList() {
         }
       >
         <For each={visible()}>{(q) => <QuestionCard q={q} />}</For>
+        <ListPosition total={filtered().length} rendered={visible().length} />
       </Show>
       <div ref={sentinel} class="sentinel" />
     </>
