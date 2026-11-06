@@ -1,7 +1,8 @@
-import { createSignal, For } from 'solid-js';
+import { createSignal, For, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL } from '../lib/format.ts';
 import { questions, setTarget, setView, target, view, type Target } from '../lib/state.ts';
+import { FindBox } from './FindBox.tsx';
 
 type Theme = 'system' | 'light' | 'dark';
 
@@ -41,6 +42,9 @@ export function Header(props: { onToggleFilters: () => void }) {
       <span class="count">{questions().length} questions</span>
       {isDev && <span class="dev-badge" title="Editing is enabled because this is the dev server">dev</span>}
       <span class="spacer" />
+      <Show when={view() === 'list'}>
+        <FindBox />
+      </Show>
       <label title="Importance, sorting and practice weighting use this interview level">
         Preparing for
         <select value={target()} onChange={(e) => setTarget(e.currentTarget.value as Target)}>

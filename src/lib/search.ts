@@ -150,6 +150,18 @@ export function matchEntry(entry: SearchEntry, terms: string[], typos: Set<strin
   return { tier: 2, marks, matchedIn: FIELDS.filter((f) => matchedIn.has(f)) };
 }
 
+/** Match entries against a query: id → match, or null when it doesn't match. Empty when the query has no terms. */
+export function matchAll(entries: Iterable<readonly [number, SearchEntry]>, query: string): Map<number, SearchMatch | null> {
+  const out = new Map<number, SearchMatch | null>();
+  const terms = parseQuery(query);
+  if (!terms.length) return out;
+  const list = [...entries];
+  // A term that appears nowhere among these entries is probably a typo and gets fuzzy matching.
+  const typos = typoTerms(terms, list.map(([, e]) => e));
+  for (const [id, entry] of list) out.set(id, matchEntry(entry, terms, typos));
+  return out;
+}
+
 /** Wrap occurrences of marks in <mark> inside an element's text nodes (case-insensitive). */
 export function highlight(root: HTMLElement, marks: string[], className?: string) {
   const unique = [...new Set(marks.filter(Boolean))].sort((a, b) => b.length - a.length);

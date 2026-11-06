@@ -71,7 +71,8 @@
   --preview-max-h: 22.5rem;
   --range-output-w: 6rem;
   --field-min-w: 11.25rem;
-  --find-input-w: 15rem;
+  --find-w: 18rem;
+  --find-ruler-w: 0.625rem;
 
   /* motion */
   --duration-fast: 0.15s;
@@ -211,6 +212,19 @@ input[type='range'] { width: 100%; accent-color: var(--accent); }
   .theme-thumb { transition: none; }
   .theme-switch button[aria-pressed='true'] .icon-svg { animation: none; }
 }
+/* Find in list (FindBox.tsx): icon, input, count and arrows styled as one field */
+.find-box {
+  display: flex; align-items: center; gap: var(--space-1); width: var(--find-w); height: var(--control-h);
+  padding: 0 var(--space-0-5) 0 var(--space-2); color: var(--text-3);
+  background: var(--surface); border: var(--border-w) solid var(--border-strong); border-radius: var(--radius);
+}
+.find-box:focus-within { outline: var(--border-w-2) solid var(--accent); outline-offset: var(--border-w); }
+.find-box .icon-svg { flex: none; width: var(--space-4); height: var(--space-4); }
+.find-box input[type='text'] { flex: 1; min-width: 0; height: 100%; padding: 0 var(--space-1); border: 0; background: transparent; font-size: var(--text-md); color: var(--text); }
+.find-box input[type='text']:focus-visible { outline: none; }
+.find-count { flex: none; font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.find-count.none { color: var(--danger); }
+.find-box button { flex: none; height: var(--control-h-sm); padding: 0 var(--space-1-5); }
 .dev-badge { font-size: var(--text-xs); font-weight: var(--weight-semibold); padding: var(--space-0-5) var(--space-2); border-radius: var(--radius-full); background: var(--review-bg); color: var(--review); }
 .filters-toggle { display: none; }
 
@@ -229,6 +243,7 @@ main { padding: var(--space-5) var(--space-6) var(--space-16); min-width: 0; }
   .filters-toggle { display: inline-flex; }
   main { padding: var(--space-4); }
   .header { padding: var(--space-2-5) var(--space-4); }
+  .find-box { order: 1; width: 100%; }
 }
 
 /* ---------- sidebar ---------- */
@@ -286,17 +301,13 @@ main { padding: var(--space-5) var(--space-6) var(--space-16); min-width: 0; }
 .toolbar .toggle { color: var(--text-2); cursor: pointer; user-select: none; }
 .toggle input { accent-color: var(--accent); width: var(--space-4); height: var(--space-4); margin: 0; }
 .sentinel { height: var(--border-w); }
-/* Find-in-list bar, pinned under the header (FindBar.tsx; `top` is set from the header's height) */
-.find-bar {
-  position: fixed; right: var(--space-5); z-index: 9; margin-top: var(--space-2);
-  display: flex; align-items: center; gap: var(--space-1);
-  padding: var(--space-1); background: var(--surface);
-  border: var(--border-w) solid var(--border-strong); border-radius: var(--radius-lg); box-shadow: var(--shadow-float);
+/* Find-in-list match ticks beside the scrollbar (FindRuler.tsx) */
+.find-ruler { position: fixed; top: 0; right: 0; bottom: 0; width: var(--find-ruler-w); z-index: 11; pointer-events: none; }
+.find-ruler span {
+  position: absolute; left: 0; right: 0; height: var(--border-w-3); margin-top: calc(var(--border-w-3) / -2);
+  background: var(--find-current-bg); border-radius: var(--radius-xs);
 }
-.find-bar input[type='text'] { width: var(--find-input-w); height: var(--control-h); }
-.find-count { min-width: var(--space-16); text-align: center; font-size: var(--text-md); color: var(--text-3); font-variant-numeric: tabular-nums; }
-.find-count.none { color: var(--danger); }
-.find-bar button { height: var(--control-h); }
+.find-ruler span.current { z-index: 1; height: var(--space-1-5); margin-top: calc(var(--space-1-5) / -2); background: var(--accent); }
 /* Floating "12 / 87" position pill (ListPosition.tsx) */
 .list-position {
   position: fixed; right: var(--space-5); bottom: var(--space-5); z-index: 5;
@@ -315,8 +326,6 @@ main { padding: var(--space-5) var(--space-6) var(--space-16); min-width: 0; }
 .list-position-bar div { height: 100%; background: var(--accent); transition: width var(--duration-fast); }
 @media (max-width: 53.75em) {
   .list-position { right: var(--space-3); bottom: var(--space-3); }
-  .find-bar { left: var(--space-3); right: var(--space-3); }
-  .find-bar input[type='text'] { width: auto; flex: 1; min-width: 0; }
 }
 
 .card {

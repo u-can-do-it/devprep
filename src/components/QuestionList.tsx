@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
+import { createComputed, createEffect, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVEL_LABEL } from '../lib/format.ts';
 import { progress } from '../lib/progress.ts';
@@ -16,8 +16,9 @@ import {
   target,
   type SortKey,
 } from '../lib/state.ts';
-import { findCurrentId, findScroll, openFind } from '../lib/find.ts';
-import { FindBar } from './FindBar.tsx';
+import { findActive } from '../lib/find.ts';
+import { topCardIndex } from '../lib/viewport.ts';
+import { FindRuler } from './FindRuler.tsx';
 import { ListPosition } from './ListPosition.tsx';
 import { QuestionCard } from './QuestionCard.tsx';
 
@@ -25,7 +26,20 @@ const PAGE = 40;
 
 export function QuestionList() {
   const [limit, setLimit] = createSignal(PAGE);
-  const visible = () => filtered().slice(0, limit());
+  // While finding, render the whole list: matches are reachable, and the scrollbar (with its
+  // match ticks) spans every question rather than only the pages loaded so far.
+  const visible = () => (findActive() ? filtered() : filtered().slice(0, limit()));
+  // Clearing the find box keeps everything down to where you are, so the page doesn't jump.
+  // (A computed runs before the DOM updates, so the old cards can still be measured.)
+  createComputed(
+    on(
+      findActive,
+      (active, was) => {
+        if (was && !active) setLimit((n) => Math.max(n, topCardIndex() + PAGE));
+      },
+      { defer: true },
+    ),
+  );
   let sentinel!: HTMLDivElement;
   // Back to the first page when the filters change (not when progress marks change).
   const filterKey = () => JSON.stringify(filters) + target();
@@ -44,16 +58,6 @@ export function QuestionList() {
     reveal(id);
     setJumpTarget(null);
   });
-
-  // Find in list: render the card holding the current match (the card scrolls itself into view).
-  createEffect(
-    on(findScroll, () => {
-      const id = findCurrentId();
-      if (id === null) return;
-      const idx = filtered().findIndex((q) => q.id === id);
-      if (idx >= limit()) setLimit(idx + PAGE);
-    }),
-  );
 
   // Render cards in pages; load more as the bottom comes into view.
   onMount(() => {
@@ -90,9 +94,6 @@ export function QuestionList() {
           <Show when={searchSplit()}>{(split) => <span class="results-split"> · {split()}</span>}</Show>
         </span>
         <span class="spacer" />
-        <button class="ghost" onClick={() => openFind()} title="Find in this list without filtering it (Ctrl+F)">
-          <SearchIcon /> Find
-        </button>
         <label class="toggle" title="Also available as Progress → Hide known in the sidebar">
           <input
             type="checkbox"
@@ -131,18 +132,10 @@ export function QuestionList() {
       >
         <For each={visible()}>{(q) => <QuestionCard q={q} />}</For>
         <ListPosition total={filtered().length} rendered={visible().length} />
+        <FindRuler />
       </Show>
       <div ref={sentinel} class="sentinel" />
-      <FindBar />
     </>
   );
 }
 
-function SearchIcon() {
-  return (
-    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
-    </svg>
-  );
-}

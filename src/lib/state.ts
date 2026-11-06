@@ -1,9 +1,10 @@
-import { batch, createEffect, createMemo, createResource, createRoot, createSignal, on } from 'solid-js';
+import { batch, createEffect, createMemo, createResource, createRoot, createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { loadRaw } from './api.ts';
 import { LEVELS, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
 import { mergeProgress, progress } from './progress.ts';
-import { buildEntry, inRanges, matchEntry, parseIds, parseQuery, typoTerms, type SearchMatch } from './search.ts';
+import { debounced } from './debounce.ts';
+import { buildEntry, inRanges, matchAll, parseIds, parseQuery } from './search.ts';
 
 // ---------- data ----------
 
@@ -146,33 +147,10 @@ export const searchEntries = createRoot(() =>
 );
 
 // Matching runs on a debounced copy of the search box so typing stays smooth.
-const [searchQuery, setSearchQuery] = createSignal(filters.search);
-let searchTimer: ReturnType<typeof setTimeout> | undefined;
-createRoot(() =>
-  createEffect(
-    on(
-      () => filters.search,
-      (value) => {
-        clearTimeout(searchTimer);
-        searchTimer = setTimeout(() => setSearchQuery(value), 120);
-      },
-      { defer: true },
-    ),
-  ),
-);
+const [searchQuery, flushSearch] = debounced(() => filters.search, 120);
 
 /** id → how the question matches the search box (null = no match). Empty when the search box is empty. */
-export const searchMatches = createRoot(() =>
-  createMemo(() => {
-    const terms = parseQuery(searchQuery());
-    const out = new Map<number, SearchMatch | null>();
-    if (!terms.length) return out;
-    const entries = searchEntries();
-    const typos = typoTerms(terms, entries.values());
-    for (const [id, entry] of entries) out.set(id, matchEntry(entry, terms, typos));
-    return out;
-  }),
-);
+export const searchMatches = createRoot(() => createMemo(() => matchAll(searchEntries(), searchQuery())));
 
 export const filtered = createRoot(() =>
   createMemo(() => {
@@ -226,7 +204,7 @@ export function jumpTo(id: number, tag: string) {
   batch(() => {
     setFilters({ ...DEFAULT_FILTERS, sort: filters.sort, tags: [tag] });
     // Skip the search debounce so the list is already filtered when it looks for the question.
-    setSearchQuery('');
+    flushSearch();
     setView('list');
     setJumpTarget(id);
   });
