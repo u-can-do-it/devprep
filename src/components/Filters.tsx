@@ -74,22 +74,39 @@ export function Filters() {
             </button>
           </Show>
         </div>
-        <textarea
-          id="search"
-          ref={searchEl}
-          class="search"
-          rows={1}
-          enterkeyhint="search"
-          spellcheck={false}
-          placeholder="closure, CORS, #27, #494-501"
-          value={filters.search}
-          onInput={(e) => setFilters('search', e.currentTarget.value)}
-          onKeyDown={(e) => {
-            // Still a one-line search: Enter adds no line break, Escape clears like a native search input.
-            if (e.key === 'Enter') e.preventDefault();
-            else if (e.key === 'Escape' && filters.search) setFilters('search', '');
-          }}
-        />
+        <div class="search-wrap">
+          <textarea
+            id="search"
+            ref={searchEl}
+            class="search"
+            rows={1}
+            enterkeyhint="search"
+            spellcheck={false}
+            placeholder="closure, CORS, #27, #494-501"
+            value={filters.search}
+            onInput={(e) => setFilters('search', e.currentTarget.value)}
+            onKeyDown={(e) => {
+              // Still a one-line search: Enter adds no line break, Escape clears like a native search input.
+              if (e.key === 'Enter') e.preventDefault();
+              else if (e.key === 'Escape' && filters.search) setFilters('search', '');
+            }}
+          />
+          <Show when={filters.search}>
+            <button
+              class="ghost search-clear"
+              title="Clear search (Esc)"
+              aria-label="Clear search"
+              onClick={() => {
+                setFilters('search', '');
+                searchEl.focus();
+              }}
+            >
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            </button>
+          </Show>
+        </div>
       </div>
 
       <BookmarkList />

@@ -172,6 +172,16 @@ textarea.search {
   resize: none; overflow: hidden; overflow-wrap: anywhere; min-height: var(--control-h-lg);
   padding-block: calc((var(--control-h-lg) - 2 * var(--border-w) - 1lh) / 2);
 }
+/* Clear button sits in the search box's first line; the text keeps clear of it. */
+.search-wrap { position: relative; }
+.search-wrap textarea.search:not(:placeholder-shown) { padding-right: calc(var(--control-h-lg) + var(--space-1)); }
+.search-clear {
+  position: absolute; top: calc(var(--border-w) + var(--space-0-5)); right: calc(var(--border-w) + var(--space-0-5));
+  width: calc(var(--control-h-lg) - 2 * var(--border-w) - 2 * var(--space-0-5));
+  height: calc(var(--control-h-lg) - 2 * var(--border-w) - 2 * var(--space-0-5));
+  padding: 0; justify-content: center; color: var(--text-3);
+}
+.search-clear:hover { color: var(--text); }
 input[type='range'] { width: 100%; accent-color: var(--accent); }
 .icon-svg { width: var(--icon-sm); height: var(--icon-sm); }
 
