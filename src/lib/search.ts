@@ -151,7 +151,7 @@ export function matchEntry(entry: SearchEntry, terms: string[], typos: Set<strin
 }
 
 /** Wrap occurrences of marks in <mark> inside an element's text nodes (case-insensitive). */
-export function highlight(root: HTMLElement, marks: string[]) {
+export function highlight(root: HTMLElement, marks: string[], className?: string) {
   const unique = [...new Set(marks.filter(Boolean))].sort((a, b) => b.length - a.length);
   if (!unique.length) return;
   const re = new RegExp(unique.map((m) => m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'gi');
@@ -171,6 +171,7 @@ export function highlight(root: HTMLElement, marks: string[]) {
       const i = m.index ?? 0;
       if (i > last) frag.append(text.slice(last, i));
       const mark = document.createElement('mark');
+      if (className) mark.className = className;
       mark.textContent = m[0];
       frag.append(mark);
       last = i + m[0].length;

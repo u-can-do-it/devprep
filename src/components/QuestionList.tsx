@@ -16,6 +16,8 @@ import {
   target,
   type SortKey,
 } from '../lib/state.ts';
+import { findCurrentId, findScroll, openFind } from '../lib/find.ts';
+import { FindBar } from './FindBar.tsx';
 import { ListPosition } from './ListPosition.tsx';
 import { QuestionCard } from './QuestionCard.tsx';
 
@@ -42,6 +44,16 @@ export function QuestionList() {
     reveal(id);
     setJumpTarget(null);
   });
+
+  // Find in list: render the card holding the current match (the card scrolls itself into view).
+  createEffect(
+    on(findScroll, () => {
+      const id = findCurrentId();
+      if (id === null) return;
+      const idx = filtered().findIndex((q) => q.id === id);
+      if (idx >= limit()) setLimit(idx + PAGE);
+    }),
+  );
 
   // Render cards in pages; load more as the bottom comes into view.
   onMount(() => {
@@ -78,6 +90,9 @@ export function QuestionList() {
           <Show when={searchSplit()}>{(split) => <span class="results-split"> · {split()}</span>}</Show>
         </span>
         <span class="spacer" />
+        <button class="ghost" onClick={() => openFind()} title="Find in this list without filtering it (Ctrl+F)">
+          <SearchIcon /> Find
+        </button>
         <label class="toggle" title="Also available as Progress → Hide known in the sidebar">
           <input
             type="checkbox"
@@ -118,6 +133,16 @@ export function QuestionList() {
         <ListPosition total={filtered().length} rendered={visible().length} />
       </Show>
       <div ref={sentinel} class="sentinel" />
+      <FindBar />
     </>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
   );
 }

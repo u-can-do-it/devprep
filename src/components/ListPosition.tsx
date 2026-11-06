@@ -1,4 +1,5 @@
 import { createEffect, createSignal, on, onCleanup, onMount } from 'solid-js';
+import { listCards, topCardIndex } from '../lib/viewport.ts';
 
 /**
  * Floating "12 / 87" pill: which card of the current (filtered, sorted) list is at the top of the
@@ -12,26 +13,15 @@ export function ListPosition(props: { total: number; rendered: number }) {
   const measure = () => {
     frame = 0;
     setAtTop(window.scrollY < 1);
-    const cards = document.querySelectorAll<HTMLElement>('main article.card');
+    const cards = listCards();
     if (!cards.length) return;
-    // Cards scrolled into view land at their scroll-margin (just under the sticky header),
-    // so a card counts as current once it reaches that line.
-    const line = parseFloat(getComputedStyle(cards[0]).scrollMarginTop) || 0;
     const root = document.documentElement;
     if (props.rendered >= props.total && window.scrollY + window.innerHeight >= root.scrollHeight - 1) {
-      // At the very bottom the last cards can never reach the line; show the end of the list.
+      // At the very bottom the last cards can never reach the top; show the end of the list.
       setCurrent(props.total);
       return;
     }
-    // First card whose bottom is below the line (cards are in document order).
-    let lo = 0;
-    let hi = cards.length - 1;
-    while (lo < hi) {
-      const mid = (lo + hi) >> 1;
-      if (cards[mid].getBoundingClientRect().bottom > line) hi = mid;
-      else lo = mid + 1;
-    }
-    setCurrent(lo + 1);
+    setCurrent(topCardIndex(cards) + 1);
   };
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(measure);

@@ -1,8 +1,9 @@
-import { createSignal, For, Show } from 'solid-js';
+import { createEffect, createSignal, For, on, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL, type Question } from '../lib/format.ts';
 import { bookmarks, categoryOf, isBookmarked, toggleBookmark } from '../lib/bookmarks.ts';
 import { isOpen, setOpen } from '../lib/expanded.ts';
+import { claimFindScroll, findCurrentId, findMatches, findScroll } from '../lib/find.ts';
 import { statusOf, toggleStatus } from '../lib/progress.ts';
 import { filters, importanceOf, searchMatches, setEditing, tagById, target, toggleIn } from '../lib/state.ts';
 import { ImportanceMeter, LevelBadge, TagBadge } from './Badges.tsx';
@@ -28,10 +29,43 @@ export function QuestionCard(props: { q: Question }) {
     const other = bookmarks()[category];
     return `Bookmark this question in ${label}${other !== undefined ? ` (moves it from #${other})` : ''}`;
   };
+  // Find in list: highlight its matches, and scroll to them when this card becomes the current match.
+  const findMatch = () => findMatches().get(props.q.id);
+  const findMarks = () => findMatch()?.marks;
+  const isFindCurrent = () => findCurrentId() === props.q.id;
+  let article!: HTMLElement;
+  let hintsEl: HTMLDetailsElement | undefined;
+  let answerEl!: HTMLDetailsElement;
+  createEffect(
+    on([findScroll, isFindCurrent], () => {
+      if (!isFindCurrent() || !claimFindScroll()) return;
+      // Matches in hints or the answer: open those sections, as browsers do for find-in-page.
+      const fields = findMatch()?.matchedIn ?? [];
+      if (fields.includes('hints') && hintsEl) {
+        hintsEl.open = true;
+        setHintsSeen(true);
+      }
+      if (fields.includes('answer')) {
+        answerEl.open = true;
+        setAnswerSeen(true);
+      }
+      // After Solid has rendered the opened sections and their marks.
+      queueMicrotask(() => {
+        const mark = article.querySelector('mark.find');
+        if (mark) mark.scrollIntoView({ block: 'center' });
+        else article.scrollIntoView();
+      });
+    }),
+  );
   const breakdown = () => LEVELS.map((l) => `${LEVEL_LABEL[l]} ${props.q.importance[l]}`).join(' · ');
 
   return (
-    <article id={`q-${props.q.id}`} class="card" classList={{ known: status() === 'known', review: status() === 'review', bookmarked: bookmarked() }}>
+    <article
+      ref={article}
+      id={`q-${props.q.id}`}
+      class="card"
+      classList={{ known: status() === 'known', review: status() === 'review', bookmarked: bookmarked(), 'find-current': isFindCurrent() }}
+    >
       <div class="card-meta">
         <LevelBadge level={props.q.level} />
         <For each={props.q.tags}>
@@ -45,7 +79,7 @@ export function QuestionCard(props: { q: Question }) {
       </div>
 
       <h2 class="question-title">
-        <InlineMarkdown src={props.q.question} marks={marks()} />
+        <InlineMarkdown src={props.q.question} marks={marks()} findMarks={findMarks()} />
       </h2>
       <div class="sub">
         <Show when={matchedIn()}>
@@ -64,6 +98,7 @@ export function QuestionCard(props: { q: Question }) {
       <div class="reveals">
         <Show when={props.q.hints.length}>
           <details
+            ref={hintsEl}
             class="reveal"
             open={isOpen(props.q.id, 'hints')}
             onToggle={(e) => {
@@ -78,7 +113,7 @@ export function QuestionCard(props: { q: Question }) {
                 <For each={props.q.hints}>
                   {(h) => (
                     <li>
-                      <InlineMarkdown src={h} marks={marks()} />
+                      <InlineMarkdown src={h} marks={marks()} findMarks={findMarks()} />
                     </li>
                   )}
                 </For>
@@ -87,6 +122,7 @@ export function QuestionCard(props: { q: Question }) {
           </details>
         </Show>
         <details
+          ref={answerEl}
           class="reveal"
           open={isOpen(props.q.id, 'answer')}
           onToggle={(e) => {
@@ -97,7 +133,7 @@ export function QuestionCard(props: { q: Question }) {
         >
           <summary>Show answer</summary>
           <Show when={answerSeen()}>
-            <Markdown src={props.q.answer} marks={marks()} />
+            <Markdown src={props.q.answer} marks={marks()} findMarks={findMarks()} />
           </Show>
         </details>
       </div>

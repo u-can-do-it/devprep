@@ -137,7 +137,8 @@ export const importanceOf = (q: Question, t: Target = target()) =>
 
 const levelRank = (l: Level) => LEVELS.indexOf(l);
 
-const searchEntries = createRoot(() =>
+/** id → normalized text for searching (shared by the sidebar search and find-in-list). */
+export const searchEntries = createRoot(() =>
   createMemo(() => {
     const labels = tagById();
     return new Map(questions().map((q) => [q.id, buildEntry(q, q.tags.map((t) => labels.get(t)?.label ?? t))]));

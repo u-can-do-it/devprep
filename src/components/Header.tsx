@@ -1,9 +1,15 @@
-import { createSignal } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL } from '../lib/format.ts';
 import { questions, setTarget, setView, target, view, type Target } from '../lib/state.ts';
 
 type Theme = 'system' | 'light' | 'dark';
+
+const THEMES: { id: Theme; label: string }[] = [
+  { id: 'light', label: 'Light' },
+  { id: 'system', label: 'System' },
+  { id: 'dark', label: 'Dark' },
+];
 
 function readTheme(): Theme {
   const t = document.documentElement.dataset.theme;
@@ -13,8 +19,7 @@ function readTheme(): Theme {
 export function Header(props: { onToggleFilters: () => void }) {
   const [theme, setTheme] = createSignal<Theme>(readTheme());
 
-  const cycleTheme = () => {
-    const next: Theme = theme() === 'system' ? 'dark' : theme() === 'dark' ? 'light' : 'system';
+  const applyTheme = (next: Theme) => {
     setTheme(next);
     if (next === 'system') delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = next;
@@ -53,9 +58,26 @@ export function Header(props: { onToggleFilters: () => void }) {
           Practice
         </button>
       </div>
-      <button class="ghost icon" onClick={cycleTheme} title={`Theme: ${theme()}`} aria-label={`Theme: ${theme()}`}>
-        <ThemeIcon theme={theme()} />
-      </button>
+      <div class="segmented theme-switch" role="group" aria-label="Theme">
+        <span
+          class="theme-thumb"
+          aria-hidden="true"
+          style={{ '--i': THEMES.findIndex((t) => t.id === theme()) }}
+        />
+        <For each={THEMES}>
+          {(t) => (
+            <button
+              class="icon"
+              aria-pressed={theme() === t.id}
+              onClick={() => applyTheme(t.id)}
+              title={`${t.label} theme`}
+              aria-label={`${t.label} theme`}
+            >
+              <ThemeIcon theme={t.id} />
+            </button>
+          )}
+        </For>
+      </div>
     </header>
   );
 }
@@ -72,8 +94,8 @@ function ThemeIcon(props: { theme: Theme }) {
     );
   return (
     <svg {...common}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+      <rect x="2" y="4" width="20" height="13" rx="2" />
+      <path d="M8 21h8M12 17v4" />
     </svg>
   );
 }
