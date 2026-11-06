@@ -149,7 +149,7 @@ export function Filters() {
                   {(t) => (
                     <button
                       class="chip"
-                      classList={{ empty: !tagCounts()[t.id] }}
+                      classList={{ 'chip-none': !tagCounts()[t.id] }}
                       aria-pressed={filters.tags.includes(t.id)}
                       onClick={() => toggleIn('tags', t.id)}
                     >
