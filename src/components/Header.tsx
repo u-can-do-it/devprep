@@ -21,9 +21,16 @@ export function Header(props: { onToggleFilters: () => void }) {
   const [theme, setTheme] = createSignal<Theme>(readTheme());
 
   const applyTheme = (next: Theme) => {
-    setTheme(next);
-    if (next === 'system') delete document.documentElement.dataset.theme;
-    else document.documentElement.dataset.theme = next;
+    const swap = () => {
+      setTheme(next);
+      if (next === 'system') delete document.documentElement.dataset.theme;
+      else document.documentElement.dataset.theme = next;
+    };
+    // Cross-fade the old colors into the new ones (styles.css ::view-transition-*);
+    // switch instantly where unsupported or when the user prefers less motion.
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if ('startViewTransition' in document && !reduceMotion) document.startViewTransition(swap);
+    else swap();
     try {
       if (next === 'system') localStorage.removeItem('devprep:theme');
       else localStorage.setItem('devprep:theme', next);

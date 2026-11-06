@@ -78,6 +78,7 @@
   --duration-fast: 0.15s;
   --duration: 0.2s;
   --duration-slow: 0.35s;
+  --duration-theme: 0.5s;
 
   /* colors: light-dark(light, dark) */
   --bg: light-dark(#f6f7f9, #0f1115);
@@ -218,6 +219,13 @@ input[type='range'] { width: 100%; accent-color: var(--accent); }
   from { transform: rotate(-90deg) scale(0.5); opacity: 0; }
   to { transform: none; opacity: 1; }
 }
+/* Theme change cross-fades the whole page (Header.tsx applyTheme). The switch is
+   lifted out of the fade so its sliding thumb isn't ghosted by the old snapshot. */
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: var(--duration-theme); animation-timing-function: ease-in-out; }
+.theme-switch { view-transition-name: theme-switch; }
+::view-transition-new(theme-switch) { animation: none; }
+::view-transition-old(theme-switch) { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .theme-thumb { transition: none; }
   .theme-switch button[aria-pressed='true'] .icon-svg { animation: none; }
