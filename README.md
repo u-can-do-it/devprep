@@ -23,7 +23,7 @@ pnpm validate      # only check data/
 - **Hints and answers** are hidden until you open them.
 - **Progress:** mark questions as *known* or *review later*, and hide known ones with the toolbar toggle. Stored in your browser; export or import as CSV, or in dev write it to `data/progress.csv`.
 - **Bookmarks:** one per category (a question's tag) to keep your place. Bookmarking another question in the same category moves it; the sidebar lists them and jumps back to each. Stored in your browser, as is which hints and answers you left open.
-- **Guides:** long-form handbooks next to the question list (the first one is a Next.js interview handbook), with a table of contents that follows your reading position and a URL that points at the section you are on.
+- **Guides:** long-form handbooks next to the question list (the first one is a Next.js interview handbook), with a table of contents that follows your reading position. Mark chapters as *known*; a floating counter shows known / all chapters. The section you are reading is kept in the URL (`&section=…`) and in your browser, so a reload, a shared link or coming back from the list lands where you left off.
 - **Practice mode:** flashcards from the current filters, shuffled with weights (important and "review" questions come first). Keys: `H` hint, `A`/`Space` answer, `K` knew it, `R` review, `S` skip, `←` back.
 - **Editor** (dev server only): add, edit and delete questions from the UI. It writes straight to `data/`.
 - Filters live in the URL, so any view can be bookmarked or shared.
@@ -67,7 +67,7 @@ Markdown, with fenced code blocks (```js, ```python, ```sql, ...).
 ### Guides
 
 Each file in `data/guides/` is one guide, shown under **Guides** in the header. The file name is its
-slug in the URL (`?view=guide&guide=nextjs`).
+slug in the URL (`?view=guide&guide=nextjs&section=hydration`).
 
 ```md
 # Guide title
@@ -84,7 +84,8 @@ Markdown. Link to another heading with [text](#heading-id), where the id is the 
 lowercase with dashes ("Server and Client Components" → `#server-and-client-components`).
 ```
 
-Chapters and sections are numbered automatically. Headings must be unique within a guide, in-page
+Chapters and sections are numbered automatically. Known chapters and the reading position are stored
+in the browser under the heading ids, so renaming a heading forgets them for that heading. Headings must be unique within a guide, in-page
 links must point at an existing heading, and other links must be absolute; `pnpm validate` checks all three.
 
 ### Importance

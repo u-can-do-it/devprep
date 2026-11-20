@@ -101,7 +101,13 @@ function readUrl() {
   if (!['importance', 'difficulty-asc', 'difficulty-desc', 'newest', 'oldest'].includes(filters.sort))
     filters.sort = 'importance';
   const v = p.get('view');
-  return { filters, target, view: (v === 'practice' || v === 'guide' ? v : 'list') as View, guide: p.get('guide') ?? '' };
+  return {
+    filters,
+    target,
+    view: (v === 'practice' || v === 'guide' ? v : 'list') as View,
+    guide: p.get('guide') ?? '',
+    section: p.get('section') ?? '',
+  };
 }
 
 const initial = readUrl();
@@ -111,6 +117,8 @@ export const [view, setView] = createSignal<View>(initial.view);
 /** Slug of the guide being read; empty = the first one. */
 export const [guideSlug, setGuideSlug] = createSignal(initial.guide);
 export const currentGuide = () => guides().find((g) => g.slug === guideSlug()) ?? guides()[0];
+/** Id of the guide heading being read; '' = the top. In the URL so a reload or a shared link lands there. */
+export const [guideSection, setGuideSection] = createSignal(initial.section);
 
 export function setTarget(t: Target) {
   setTargetSignal(t);
@@ -140,6 +148,7 @@ createRoot(() => createEffect(() => {
   if (target() !== 'any') p.set('target', target());
   if (view() !== 'list') p.set('view', view());
   if (view() === 'guide' && guideSlug()) p.set('guide', guideSlug());
+  if (view() === 'guide' && guideSection()) p.set('section', guideSection());
   const qs = p.toString().replace(/%2C/g, ',');
   history.replaceState(null, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`);
 }));

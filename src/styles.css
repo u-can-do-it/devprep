@@ -451,7 +451,18 @@ pre.code code { background: none; padding: 0; font-size: inherit; }
 /* --guide-offset is the measured header height (Guide.tsx); it is taller than --header-h when the header wraps. */
 .guide [data-heading] { scroll-margin-top: calc(var(--guide-offset, var(--header-h)) + var(--space-4)); }
 .guide-chapter { margin-top: var(--space-12); padding-top: var(--space-6); border-top: var(--border-w) solid var(--border-strong); }
-.guide-chapter > h2 { font-size: var(--text-3xl); line-height: var(--leading-tight); margin: 0 0 var(--space-3); }
+/* Chapter heading with its "I know it" button; the button drops below the title when there is no room. */
+.guide-chapter-head {
+  display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4); margin-bottom: var(--space-3);
+}
+.guide-chapter-head h2 { flex: 1; min-width: min(100%, var(--field-min-w)); font-size: var(--text-3xl); line-height: var(--leading-tight); margin: 0; }
+.guide-chapter-head button { flex: none; margin-top: var(--space-1); }
+.guide-chapter-foot { display: flex; margin-top: var(--space-6); padding-top: var(--space-4); border-top: var(--border-w) solid var(--border); }
+.guide-chapter.known .guide-chapter-head .guide-n { color: var(--known); }
+.known-mark { flex: none; margin-left: var(--space-2); color: var(--known); font-weight: var(--weight-semibold); }
+/* Known / all chapters pill: the list's position pill (ListPosition.tsx) with a progress-colored bar. */
+.known-counter .list-position-bar div { background: var(--known); }
 .guide-chapter h3 { font-size: var(--text-xl); line-height: var(--leading-tight); margin: var(--space-8) 0 var(--space-2); }
 .guide-contents {
   margin-top: var(--space-5); padding: var(--space-4) var(--space-5);
@@ -481,6 +492,8 @@ pre.code code { background: none; padding: 0; font-size: inherit; }
 }
 .toc a:hover { background: var(--surface-2); color: var(--text); }
 .toc li.current > a { color: var(--text); font-weight: var(--weight-semibold); }
+.toc li.known > a .toc-n { color: var(--known); }
+.toc .known-mark { margin-left: auto; }
 .toc a[aria-current='true'] { background: var(--accent-bg); color: var(--accent-text); }
 .toc-n { flex: none; min-width: var(--space-4); color: var(--text-3); font-weight: normal; font-variant-numeric: tabular-nums; }
 .toc-sections { margin: var(--space-0-5) 0 var(--space-2) var(--space-6); border-left: var(--border-w) solid var(--border); }
