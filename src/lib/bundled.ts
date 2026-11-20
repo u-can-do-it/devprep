@@ -12,5 +12,12 @@ for (const [file, md] of Object.entries(files)) {
   if (m) answers[Number(m[1])] = md;
 }
 
-const data: RawData = { questionsCsv, tagsCsv, progressCsv, answers };
+const guideFiles = import.meta.glob<string>('../../data/guides/*.md', { query: '?raw', import: 'default', eager: true });
+const guides: Record<string, string> = {};
+for (const [file, md] of Object.entries(guideFiles)) {
+  const m = file.match(/([^/]+)\.md$/);
+  if (m) guides[m[1]] = md;
+}
+
+const data: RawData = { questionsCsv, tagsCsv, progressCsv, answers, guides };
 export default data;

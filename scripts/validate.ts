@@ -1,7 +1,17 @@
 // Checks data/ for consistency. Runs before every build and in CI: `npm run validate`.
 import fs from 'node:fs';
 import path from 'node:path';
-import { answerPath, parseAnswerMd, parseProgress, parseQuestions, parseTags, validateQuestion } from '../src/lib/format.ts';
+import {
+  answerPath,
+  guidePath,
+  parseAnswerMd,
+  parseGuide,
+  parseProgress,
+  parseQuestions,
+  parseTags,
+  validateGuide,
+  validateQuestion,
+} from '../src/lib/format.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 const read = (rel: string) => fs.readFileSync(path.join(root, rel), 'utf8');
@@ -46,6 +56,13 @@ for (const id of Object.keys(progress).map(Number)) {
   if (!seen.has(id)) problems.push(`data/progress.csv: warning: unknown question id ${id}`);
 }
 
+const guidesDir = path.join(root, 'data/guides');
+const guideFiles = fs.existsSync(guidesDir) ? fs.readdirSync(guidesDir).filter((f) => f.endsWith('.md')) : [];
+for (const f of guideFiles) {
+  const slug = f.slice(0, -3);
+  for (const e of validateGuide(parseGuide(slug, read(guidePath(slug))))) problems.push(`${guidePath(slug)}: ${e}`);
+}
+
 const errors = problems.filter((p) => !p.includes('warning:'));
 for (const p of problems) console.log(p.includes('warning:') ? `  ⚠ ${p}` : `  ✗ ${p}`);
 if (errors.length) {
@@ -56,5 +73,5 @@ const byLevel = Object.groupBy(questions, (q) => q.level);
 console.log(
   `✓ ${questions.length} questions, ${tags.length} tags (` +
     Object.entries(byLevel).map(([l, qs]) => `${l} ${qs?.length}`).join(', ') +
-    ')',
+    `), ${guideFiles.length} guide(s)`,
 );

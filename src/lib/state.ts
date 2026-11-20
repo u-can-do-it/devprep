@@ -1,7 +1,7 @@
 import { batch, createEffect, createMemo, createResource, createRoot, createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { loadRaw } from './api.ts';
-import { LEVELS, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
+import { LEVELS, parseGuide, parseProgress, parseQuestions, parseTags, type Level, type Question, type Tag } from './format.ts';
 import { mergeProgress, progress } from './progress.ts';
 import { debounced } from './debounce.ts';
 import { buildEntry, inRanges, matchAll, parseIds, parseQuery } from './search.ts';
@@ -39,6 +39,15 @@ createRoot(() =>
   }),
 );
 
+/** Long-form guides (data/guides/*.md), ordered by file name. */
+export const guides = createRoot(() =>
+  createMemo(() =>
+    Object.entries(raw.latest?.guides ?? {})
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([slug, md]) => parseGuide(slug, md)),
+  ),
+);
+
 export const tagById = createRoot(() => createMemo(() => new Map(tags().map((t) => [t.id, t]))));
 
 // ---------- filters (mirrored in the URL) ----------
@@ -46,7 +55,7 @@ export const tagById = createRoot(() => createMemo(() => new Map(tags().map((t) 
 export type Target = Level | 'any';
 export type SortKey = 'importance' | 'difficulty-asc' | 'difficulty-desc' | 'newest' | 'oldest';
 export type ProgressFilter = 'all' | 'unseen' | 'review' | 'known' | 'hide-known';
-export type View = 'list' | 'practice';
+export type View = 'list' | 'practice' | 'guide';
 
 export interface Filters {
   search: string;
@@ -91,13 +100,17 @@ function readUrl() {
   if (!['all', 'unseen', 'review', 'known', 'hide-known'].includes(filters.progress)) filters.progress = 'all';
   if (!['importance', 'difficulty-asc', 'difficulty-desc', 'newest', 'oldest'].includes(filters.sort))
     filters.sort = 'importance';
-  return { filters, target, view: (p.get('view') === 'practice' ? 'practice' : 'list') as View };
+  const v = p.get('view');
+  return { filters, target, view: (v === 'practice' || v === 'guide' ? v : 'list') as View, guide: p.get('guide') ?? '' };
 }
 
 const initial = readUrl();
 export const [filters, setFilters] = createStore<Filters>(initial.filters);
 export const [target, setTargetSignal] = createSignal<Target>(initial.target);
 export const [view, setView] = createSignal<View>(initial.view);
+/** Slug of the guide being read; empty = the first one. */
+export const [guideSlug, setGuideSlug] = createSignal(initial.guide);
+export const currentGuide = () => guides().find((g) => g.slug === guideSlug()) ?? guides()[0];
 
 export function setTarget(t: Target) {
   setTargetSignal(t);
@@ -125,7 +138,8 @@ createRoot(() => createEffect(() => {
   if (filters.progress !== 'all') p.set('progress', filters.progress);
   if (filters.sort !== 'importance') p.set('sort', filters.sort);
   if (target() !== 'any') p.set('target', target());
-  if (view() === 'practice') p.set('view', 'practice');
+  if (view() !== 'list') p.set('view', view());
+  if (view() === 'guide' && guideSlug()) p.set('guide', guideSlug());
   const qs = p.toString().replace(/%2C/g, ',');
   history.replaceState(null, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`);
 }));

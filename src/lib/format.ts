@@ -179,3 +179,137 @@ export function validateQuestion(q: Question, tagIds: Set<string>): string[] {
   if (!q.answer) errs.push('answer is empty');
   return errs;
 }
+
+// ---------- guides ----------
+
+export interface GuideSection {
+  id: string;
+  /** Inline Markdown. */
+  title: string;
+  /** Markdown. */
+  body: string;
+}
+
+export interface GuideChapter {
+  id: string;
+  /** Inline Markdown. */
+  title: string;
+  /** Markdown before the first section. */
+  intro: string;
+  sections: GuideSection[];
+}
+
+export interface Guide {
+  /** File name without `.md`; used in the URL. */
+  slug: string;
+  title: string;
+  /** Markdown before the first chapter. */
+  intro: string;
+  chapters: GuideChapter[];
+}
+
+export const guidePath = (slug: string) => `data/guides/${slug}.md`;
+
+/** Anchor for a heading: "Server & Client `Components`" → "server-client-components". */
+export const headingId = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const isFence = (line: string) => /^\s*(```|~~~)/.test(line);
+
+/** Markdown with fenced blocks and inline code removed, so code isn't mistaken for links. */
+function withoutCode(md: string): string {
+  let fenced = false;
+  const prose = md.split('\n').filter((line) => {
+    if (isFence(line)) {
+      fenced = !fenced;
+      return false;
+    }
+    return !fenced;
+  });
+  return prose.join('\n').replace(/`[^`\n]*`/g, '');
+}
+
+/**
+ * A guide is one Markdown file: `# Title`, an intro, then `## Chapter` headings, each split into
+ * `### Section` headings. Headings inside fenced code blocks are left alone, and a heading id that
+ * repeats gets a numeric suffix so every anchor is unique.
+ */
+export function parseGuide(slug: string, md: string): Guide {
+  const guide: Guide = { slug, title: '', intro: '', chapters: [] };
+  const used = new Map<string, number>();
+  const uniqueId = (title: string) => {
+    const id = headingId(title) || 'section';
+    const n = (used.get(id) ?? 0) + 1;
+    used.set(id, n);
+    return n === 1 ? id : `${id}-${n}`;
+  };
+
+  let chapter: GuideChapter | undefined;
+  let section: GuideSection | undefined;
+  let buffer: string[] = [];
+  let fenced = false;
+  const flush = () => {
+    const text = buffer.join('\n').trim();
+    buffer = [];
+    if (section) section.body = text;
+    else if (chapter) chapter.intro = text;
+    else guide.intro = text;
+  };
+
+  for (const line of md.replace(/\r\n/g, '\n').split('\n')) {
+    if (isFence(line)) fenced = !fenced;
+    const heading = fenced ? null : line.match(/^(#{1,3})\s+(.+?)\s*$/);
+    if (!heading || (heading[1] === '###' && !chapter)) {
+      buffer.push(line);
+      continue;
+    }
+    const title = heading[2];
+    if (heading[1] === '#') {
+      if (!guide.title && !chapter) guide.title = title;
+      else buffer.push(line);
+      continue;
+    }
+    flush();
+    if (heading[1] === '##') {
+      chapter = { id: uniqueId(title), title, intro: '', sections: [] };
+      section = undefined;
+      guide.chapters.push(chapter);
+    } else {
+      section = { id: uniqueId(title), title, body: '' };
+      chapter!.sections.push(section);
+    }
+  }
+  flush();
+  return guide;
+}
+
+/** Problems with a guide, as human-readable strings. Empty = valid. */
+export function validateGuide(g: Guide): string[] {
+  const errs: string[] = [];
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(g.slug)) errs.push('file name must be lowercase letters, digits and dashes');
+  if (!g.title) errs.push('needs a "# Title" line');
+  if (!g.chapters.length) errs.push('needs at least one "## Chapter"');
+
+  const headings = g.chapters.flatMap((c) => [c, ...c.sections]);
+  const ids = new Set(headings.map((h) => h.id));
+  const titles = new Set<string>();
+  for (const h of headings) {
+    const key = headingId(h.title);
+    if (titles.has(key)) errs.push(`heading "${h.title}" repeats; anchors must be unique`);
+    titles.add(key);
+  }
+
+  // Links: in-page anchors must exist, everything else must be absolute.
+  const bodies = [g.intro, ...g.chapters.flatMap((c) => [c.intro, ...c.sections.map((s) => s.body)])];
+  for (const body of bodies) {
+    for (const [, href] of withoutCode(body).matchAll(/\]\(([^)\s]+)\)/g)) {
+      if (href.startsWith('#')) {
+        if (!ids.has(href.slice(1))) errs.push(`link to "${href}" has no matching heading`);
+      } else if (!/^https?:\/\//.test(href)) errs.push(`link "${href}" must start with http(s):// or #`);
+    }
+  }
+  return errs;
+}

@@ -32,6 +32,8 @@
   --text-lg: 1rem;
   --text-xl: 1.125rem;
   --text-2xl: 1.25rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 1.875rem;
   --weight-medium: 500;
   --weight-semibold: 600;
   --leading-none: 1;
@@ -65,6 +67,9 @@
   --sidebar-w: 16.875rem;
   --content-max: 80rem;
   --practice-max: 47.5rem;
+  --guide-max: 50rem;
+  --guide-end-space: 60vh;
+  --toc-columns-w: 18rem;
   --dialog-max: 53.75rem;
   --summary-max: 22.5rem;
   --preview-min-h: 7.5rem;
@@ -429,6 +434,58 @@ pre.code code { background: none; padding: 0; font-size: inherit; }
 .hljs-attr, .hljs-attribute, .hljs-property, .hljs-variable, .hljs-template-variable, .hljs-params { color: var(--hl-attr); }
 .hljs-built_in, .hljs-type, .hljs-meta, .hljs-tag { color: var(--hl-builtin); }
 .hljs-deletion { color: var(--danger); }
+
+/* ---------- guide (Guide.tsx) ---------- */
+.guide { max-width: var(--guide-max); padding-bottom: var(--guide-end-space); }
+.guide .md { font-size: var(--text-body); }
+.guide .md h4 { margin-top: var(--space-5); }
+.guide .md li { margin: var(--space-1) 0; }
+/* Callouts: "Trap", "Say it like this" and similar notes are written as blockquotes. */
+.guide .md blockquote {
+  padding: var(--space-2) var(--space-4); border-left-color: var(--accent); border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--accent-bg); color: var(--text);
+}
+.guide-head h1 { font-size: var(--text-4xl); line-height: var(--leading-tight); margin: 0 0 var(--space-3); }
+.guide-head .md { color: var(--text-2); }
+.guide-n { margin-right: var(--space-2); color: var(--text-3); font-weight: var(--weight-medium); font-variant-numeric: tabular-nums; }
+/* --guide-offset is the measured header height (Guide.tsx); it is taller than --header-h when the header wraps. */
+.guide [data-heading] { scroll-margin-top: calc(var(--guide-offset, var(--header-h)) + var(--space-4)); }
+.guide-chapter { margin-top: var(--space-12); padding-top: var(--space-6); border-top: var(--border-w) solid var(--border-strong); }
+.guide-chapter > h2 { font-size: var(--text-3xl); line-height: var(--leading-tight); margin: 0 0 var(--space-3); }
+.guide-chapter h3 { font-size: var(--text-xl); line-height: var(--leading-tight); margin: var(--space-8) 0 var(--space-2); }
+.guide-contents {
+  margin-top: var(--space-5); padding: var(--space-4) var(--space-5);
+  background: var(--surface); border: var(--border-w) solid var(--border); border-radius: var(--radius-lg);
+}
+.guide-contents h2 {
+  margin: 0 0 var(--space-3); font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--text-3);
+  text-transform: uppercase; letter-spacing: var(--tracking-caps);
+}
+.guide-contents ol { list-style: none; margin: 0; padding: 0; }
+.guide-contents > ol { columns: var(--toc-columns-w) 2; column-gap: var(--space-8); }
+.guide-contents > ol > li { break-inside: avoid; padding-bottom: var(--space-3); }
+.guide-contents a { text-decoration: none; }
+.guide-contents a:hover { text-decoration: underline; }
+.guide-contents > ol > li > a { display: flex; color: var(--text); font-weight: var(--weight-semibold); }
+.guide-contents .guide-n { flex: none; min-width: var(--space-5); margin-right: 0; }
+.guide-contents ol ol { padding-left: var(--space-5); line-height: var(--leading-tight); }
+.guide-contents ol ol li { margin: var(--space-1) 0; }
+.guide-contents ol ol a { color: var(--text-2); font-size: var(--text-md); }
+
+/* Sidebar table of contents */
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc select { margin-bottom: var(--space-2); }
+.toc a {
+  display: flex; gap: var(--space-2); padding: var(--space-1) var(--space-2); border-radius: var(--radius-md);
+  color: var(--text-2); text-decoration: none; font-size: var(--text-md); line-height: var(--leading-tight);
+}
+.toc a:hover { background: var(--surface-2); color: var(--text); }
+.toc li.current > a { color: var(--text); font-weight: var(--weight-semibold); }
+.toc a[aria-current='true'] { background: var(--accent-bg); color: var(--accent-text); }
+.toc-n { flex: none; min-width: var(--space-4); color: var(--text-3); font-weight: normal; font-variant-numeric: tabular-nums; }
+.toc-sections { margin: var(--space-0-5) 0 var(--space-2) var(--space-6); border-left: var(--border-w) solid var(--border); }
+.toc ol.toc-sections { padding-left: var(--space-1); }
+.toc-sections a { font-size: var(--text-sm); }
 
 /* ---------- practice ---------- */
 .practice { max-width: var(--practice-max); margin: 0 auto; }

@@ -23,6 +23,7 @@ pnpm validate      # only check data/
 - **Hints and answers** are hidden until you open them.
 - **Progress:** mark questions as *known* or *review later*, and hide known ones with the toolbar toggle. Stored in your browser; export or import as CSV, or in dev write it to `data/progress.csv`.
 - **Bookmarks:** one per category (a question's tag) to keep your place. Bookmarking another question in the same category moves it; the sidebar lists them and jumps back to each. Stored in your browser, as is which hints and answers you left open.
+- **Guides:** long-form handbooks next to the question list (the first one is a Next.js interview handbook), with a table of contents that follows your reading position and a URL that points at the section you are on.
 - **Practice mode:** flashcards from the current filters, shuffled with weights (important and "review" questions come first). Keys: `H` hint, `A`/`Space` answer, `K` knew it, `R` review, `S` skip, `←` back.
 - **Editor** (dev server only): add, edit and delete questions from the UI. It writes straight to `data/`.
 - Filters live in the URL, so any view can be bookmarked or shared.
@@ -35,6 +36,7 @@ data/
   answers/0012.md   hints + answer for question 12
   tags.csv          tag id, label, sidebar group
   progress.csv      optional: your progress, committed to the repo
+  guides/nextjs.md  a long-form guide, one Markdown file per guide
 ```
 
 ### `questions.csv`
@@ -61,6 +63,29 @@ data/
 
 Markdown, with fenced code blocks (```js, ```python, ```sql, ...).
 ```
+
+### Guides
+
+Each file in `data/guides/` is one guide, shown under **Guides** in the header. The file name is its
+slug in the URL (`?view=guide&guide=nextjs`).
+
+```md
+# Guide title
+
+Intro shown above the table of contents.
+
+## Chapter
+
+Optional chapter intro.
+
+### Section
+
+Markdown. Link to another heading with [text](#heading-id), where the id is the heading in
+lowercase with dashes ("Server and Client Components" → `#server-and-client-components`).
+```
+
+Chapters and sections are numbered automatically. Headings must be unique within a guide, in-page
+links must point at an existing heading, and other links must be absolute; `pnpm validate` checks all three.
 
 ### Importance
 

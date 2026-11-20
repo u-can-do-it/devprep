@@ -25,6 +25,8 @@ export interface RawData {
   tagsCsv: string;
   progressCsv: string;
   answers: Record<number, string>;
+  /** slug → raw Markdown of data/guides/<slug>.md */
+  guides: Record<string, string>;
 }
 
 async function readIfExists(file: string) {
@@ -73,11 +75,17 @@ export function devprepDataApi(): Plugin {
       const m = name.match(/^(\d+)\.md$/);
       if (m) answers[Number(m[1])] = await fs.readFile(path.join(dir, name), 'utf8');
     }
+    const guides: Record<string, string> = {};
+    const guidesDir = file('data/guides');
+    for (const name of await fs.readdir(guidesDir).catch(() => [] as string[])) {
+      if (name.endsWith('.md')) guides[name.slice(0, -3)] = await fs.readFile(path.join(guidesDir, name), 'utf8');
+    }
     return {
       questionsCsv: await readIfExists(file('data/questions.csv')),
       tagsCsv: await readIfExists(file('data/tags.csv')),
       progressCsv: await readIfExists(file('data/progress.csv')),
       answers,
+      guides,
     };
   }
 

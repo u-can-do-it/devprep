@@ -1,7 +1,7 @@
 import { createSignal, For, Show } from 'solid-js';
 import { isDev } from '../lib/api.ts';
 import { LEVELS, LEVEL_LABEL } from '../lib/format.ts';
-import { questions, setTarget, setView, target, view, type Target } from '../lib/state.ts';
+import { guides, questions, setTarget, setView, target, view, type Target } from '../lib/state.ts';
 import { FindBox } from './FindBox.tsx';
 
 type Theme = 'system' | 'light' | 'dark';
@@ -39,7 +39,7 @@ export function Header(props: { onToggleFilters: () => void }) {
 
   return (
     <header class="header">
-      <button class="filters-toggle icon" onClick={props.onToggleFilters} aria-label="Toggle filters">
+      <button class="filters-toggle icon" onClick={props.onToggleFilters} aria-label={view() === 'guide' ? 'Toggle contents' : 'Toggle filters'}>
         ☰
       </button>
       <a class="brand" href={import.meta.env.BASE_URL}>
@@ -52,15 +52,17 @@ export function Header(props: { onToggleFilters: () => void }) {
       <Show when={view() === 'list'}>
         <FindBox />
       </Show>
-      <label title="Importance, sorting and practice weighting use this interview level">
-        Preparing for
-        <select value={target()} onChange={(e) => setTarget(e.currentTarget.value as Target)}>
-          <option value="any">Any level</option>
-          {LEVELS.map((l) => (
-            <option value={l}>{LEVEL_LABEL[l]}</option>
-          ))}
-        </select>
-      </label>
+      <Show when={view() !== 'guide'}>
+        <label title="Importance, sorting and practice weighting use this interview level">
+          Preparing for
+          <select value={target()} onChange={(e) => setTarget(e.currentTarget.value as Target)}>
+            <option value="any">Any level</option>
+            {LEVELS.map((l) => (
+              <option value={l}>{LEVEL_LABEL[l]}</option>
+            ))}
+          </select>
+        </label>
+      </Show>
       <div class="segmented" role="group" aria-label="View">
         <button aria-pressed={view() === 'list'} onClick={() => setView('list')}>
           List
@@ -68,6 +70,11 @@ export function Header(props: { onToggleFilters: () => void }) {
         <button aria-pressed={view() === 'practice'} onClick={() => setView('practice')}>
           Practice
         </button>
+        <Show when={guides().length}>
+          <button aria-pressed={view() === 'guide'} onClick={() => setView('guide')}>
+            Guides
+          </button>
+        </Show>
       </div>
       <div class="segmented theme-switch" role="group" aria-label="Theme">
         <span

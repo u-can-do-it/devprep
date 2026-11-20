@@ -44,7 +44,9 @@ const marked = new Marked({
     link(this: { parser: { parseInline(t: Tokens.Generic[]): string } }, { href, title, tokens }: Tokens.Link) {
       const safe = /^(https?:|mailto:|#|\/)/i.test(href) ? href : '#';
       const t = title ? ` title="${escapeHtml(title)}"` : '';
-      return `<a href="${escapeHtml(safe)}"${t} target="_blank" rel="noopener noreferrer">${this.parser.parseInline(tokens)}</a>`;
+      // In-page anchors (guides) stay in this tab; everything else opens in a new one.
+      const target = safe.startsWith('#') ? '' : ' target="_blank" rel="noopener noreferrer"';
+      return `<a href="${escapeHtml(safe)}"${t}${target}>${this.parser.parseInline(tokens)}</a>`;
     },
   },
 });
