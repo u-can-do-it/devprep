@@ -84,9 +84,14 @@ Markdown. Link to another heading with [text](#heading-id), where the id is the 
 lowercase with dashes ("Server and Client Components" → `#server-and-client-components`).
 ```
 
+A guide can also embed an interactive figure with a fenced block whose language is `figure` and whose
+only line is the figure's name. Figures are defined as data in `src/lib/figures.ts` (currently a step
+grid: rows of steps with a description on hover) and drawn by `src/components/StepGrid.tsx`.
+
 Chapters and sections are numbered automatically. Known chapters and the reading position are stored
 in the browser under the heading ids, so renaming a heading forgets them for that heading. Headings must be unique within a guide, in-page
-links must point at an existing heading, and other links must be absolute; `pnpm validate` checks all three.
+links must point at an existing heading, other links must be absolute, and figures must exist;
+`pnpm validate` checks all of these.
 
 ### Importance
 

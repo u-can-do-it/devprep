@@ -68,6 +68,12 @@ Every rendering question reduces to two axes: **where** the HTML is produced (se
 | Streaming SSR | On the server | On every request, in chunks | A shell first, the rest as it resolves | Pages with slow data |
 | PPR (partial prerendering) | On the server | Shell at build time, holes at request time | A static shell instantly, then streamed holes | Mostly static pages with personalized parts |
 
+The same strategies as steps, read left to right. The highlighted tile is where the HTML gets rendered, which is the real difference between them.
+
+```figure
+rendering-strategies
+```
+
 Everything except CSR sends real HTML, so everything except CSR needs [hydration](#hydration) for its interactive parts.
 
 > **Say it like this.** "SSG renders once at build time, SSR renders on every request, ISR is SSG that re-renders in the background after a time window or an explicit invalidation. Streaming sends the SSR response in chunks behind Suspense boundaries, and PPR combines them: a static shell from the build with dynamic holes streamed per request."

@@ -70,6 +70,8 @@
   --guide-max: 50rem;
   --guide-end-space: 60vh;
   --toc-columns-w: 18rem;
+  --steps-name-w: 6.5rem;
+  --steps-tile-min-h: 3.5rem;
   --dialog-max: 53.75rem;
   --summary-max: 22.5rem;
   --preview-min-h: 7.5rem;
@@ -84,6 +86,7 @@
   --duration: 0.2s;
   --duration-slow: 0.35s;
   --duration-theme: 0.5s;
+  --duration-linger: 0.7s;
 
   /* colors: light-dark(light, dark) */
   --bg: light-dark(#f6f7f9, #0f1115);
@@ -440,6 +443,8 @@ pre.code code { background: none; padding: 0; font-size: inherit; }
 .guide .md { font-size: var(--text-body); }
 .guide .md h4 { margin-top: var(--space-5); }
 .guide .md li { margin: var(--space-1) 0; }
+/* Wide tables scroll sideways on small screens instead of breaking words in the middle. */
+.guide .md table { overflow-wrap: normal; }
 /* Callouts: "Trap", "Say it like this" and similar notes are written as blockquotes. */
 .guide .md blockquote {
   padding: var(--space-2) var(--space-4); border-left-color: var(--accent); border-radius: 0 var(--radius) var(--radius) 0;
@@ -482,6 +487,64 @@ pre.code code { background: none; padding: 0; font-size: inherit; }
 .guide-contents ol ol { padding-left: var(--space-5); line-height: var(--leading-tight); }
 .guide-contents ol ol li { margin: var(--space-1) 0; }
 .guide-contents ol ol a { color: var(--text-2); font-size: var(--text-md); }
+
+/* Step grid figure (StepGrid.tsx): a row per subject, a column per phase. Each row is its own grid
+   so the description of a tile can be placed right under that row. */
+.steps { display: grid; gap: var(--space-2); margin: var(--space-4) 0 var(--space-5); }
+.steps-row {
+  position: relative; display: grid; gap: var(--space-1-5) var(--space-5);
+  grid-template-columns: var(--steps-name-w) repeat(var(--steps-cols), minmax(0, 1fr));
+}
+.steps-tile {
+  position: relative; display: grid; align-content: center; justify-items: center; min-height: var(--steps-tile-min-h);
+  padding: var(--space-1-5) var(--space-2); border: var(--border-w) solid var(--border-strong); border-radius: var(--radius-md);
+  background: var(--surface); text-align: center; font-size: var(--text-md); line-height: var(--leading-tight); cursor: default;
+}
+.steps-tile:hover { border-color: var(--text-3); }
+.steps-tile:focus-visible { outline: var(--border-w-2) solid var(--accent); outline-offset: var(--border-w); }
+.steps-tile > b { font-weight: var(--weight-semibold); }
+.steps-tile > span { font-size: var(--text-sm); color: var(--text-2); }
+.steps-col, .steps-name { background: var(--surface-2); border-color: var(--border); }
+.steps-col { min-height: var(--control-h-lg); }
+.steps-tile.highlight { background: var(--accent-bg); border-color: var(--accent); }
+.steps-tile.highlight > b, .steps-tile.highlight > span { color: var(--accent-text); }
+/* Arrow to the next step, drawn in the column gap */
+.steps-tile.arrow::after {
+  content: '→'; position: absolute; left: 100%; top: 50%; width: var(--space-5); transform: translateY(-50%);
+  color: var(--text-3); font-size: var(--text-md); line-height: var(--leading-none); pointer-events: none;
+}
+/* Description of a tile. It lingers for a moment after the pointer leaves, so it can be read on the
+   way out, but gives way at once when another tile is pointed at. */
+.steps-tip {
+  position: absolute; z-index: 3; top: calc(100% + var(--space-1)); left: 0; right: 0;
+  padding: var(--space-2-5) var(--space-3); border: var(--border-w) solid var(--border-strong); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-float); color: var(--text-2);
+  font-size: var(--text-md); line-height: var(--leading-snug); text-align: left; pointer-events: none;
+  visibility: hidden; opacity: 0;
+  transition: opacity var(--duration) var(--duration-linger), visibility 0s calc(var(--duration-linger) + var(--duration));
+}
+.steps-tip > b { display: block; color: var(--text); font-weight: var(--weight-semibold); }
+.steps-tile:hover + .steps-tip, .steps-tile:focus + .steps-tip {
+  z-index: 4; visibility: visible; opacity: 1; transition: opacity var(--duration-fast);
+}
+.steps:has(.steps-tile:hover) .steps-tile:not(:hover) + .steps-tip { visibility: hidden; opacity: 0; transition: none; }
+.steps-legend {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-1) var(--space-4);
+  margin-top: var(--space-1); font-size: var(--text-sm); color: var(--text-3);
+}
+.steps-swatch {
+  display: inline-block; width: var(--space-3); height: var(--space-3); margin-right: var(--space-1-5); vertical-align: middle;
+  background: var(--accent-bg); border: var(--border-w) solid var(--accent); border-radius: var(--radius-xs);
+}
+@media (max-width: 53.75em) {
+  /* No room for a name column: the subject's name sits above its steps. */
+  .steps-row { grid-template-columns: repeat(var(--steps-cols), minmax(0, 1fr)); column-gap: var(--space-4); }
+  .steps-corner { display: none; }
+  .steps-name { grid-column: 1 / -1; grid-auto-flow: column; justify-content: start; align-items: baseline; gap: var(--space-2); min-height: 0; }
+  .steps-tile { font-size: var(--text-sm); padding: var(--space-1-5) var(--space-1); }
+  .steps-tile > span { font-size: var(--text-xs); }
+  .steps-tile.arrow::after { width: var(--space-4); font-size: var(--text-sm); }
+}
 
 /* Sidebar table of contents */
 .toc ol { list-style: none; margin: 0; padding: 0; }

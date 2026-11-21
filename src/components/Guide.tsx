@@ -1,7 +1,10 @@
 import { createEffect, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js';
+import { FIGURES } from '../lib/figures.ts';
+import { splitFigures } from '../lib/format.ts';
 import { isKnownChapter, savedPosition, savePosition, toggleKnownChapter } from '../lib/guideProgress.ts';
 import { currentGuide, guides, guideSection, setGuideSection, setGuideSlug } from '../lib/state.ts';
 import { InlineMarkdown, Markdown } from './Markdown.tsx';
+import { StepGrid } from './StepGrid.tsx';
 
 /** Id of the chapter or section heading the reader has scrolled to; '' above the first chapter. */
 const [activeId, setActiveId] = createSignal('');
@@ -118,7 +121,7 @@ export function Guide() {
         <article class="guide" ref={root}>
           <header class="guide-head">
             <h1>{guide().title}</h1>
-            <Markdown src={guide().intro} />
+            <Body src={guide().intro} />
           </header>
 
           <nav class="guide-contents" aria-label="Table of contents">
@@ -159,9 +162,7 @@ export function Guide() {
                   </h2>
                   <KnownToggle slug={slug()} id={chapter.id} label="I know it" />
                 </div>
-                <Show when={chapter.intro}>
-                  <Markdown src={chapter.intro} />
-                </Show>
+                <Body src={chapter.intro} />
                 <For each={chapter.sections}>
                   {(section, j) => (
                     <section>
@@ -171,7 +172,7 @@ export function Guide() {
                         </span>
                         <InlineMarkdown src={section.title} />
                       </h3>
-                      <Markdown src={section.body} />
+                      <Body src={section.body} />
                     </section>
                   )}
                 </For>
@@ -188,6 +189,21 @@ export function Guide() {
         </article>
       )}
     </Show>
+  );
+}
+
+/** A stretch of guide text: Markdown, with each figure block replaced by the figure it names. */
+function Body(props: { src: string }) {
+  return (
+    <For each={splitFigures(props.src)}>
+      {(part) =>
+        typeof part === 'string' ? (
+          <Markdown src={part} />
+        ) : (
+          <Show when={FIGURES[part.figure]}>{(figure) => <StepGrid figure={figure()} />}</Show>
+        )
+      }
+    </For>
   );
 }
 

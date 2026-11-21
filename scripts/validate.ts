@@ -12,6 +12,7 @@ import {
   validateGuide,
   validateQuestion,
 } from '../src/lib/format.ts';
+import { FIGURES } from '../src/lib/figures.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 const read = (rel: string) => fs.readFileSync(path.join(root, rel), 'utf8');
@@ -60,7 +61,8 @@ const guidesDir = path.join(root, 'data/guides');
 const guideFiles = fs.existsSync(guidesDir) ? fs.readdirSync(guidesDir).filter((f) => f.endsWith('.md')) : [];
 for (const f of guideFiles) {
   const slug = f.slice(0, -3);
-  for (const e of validateGuide(parseGuide(slug, read(guidePath(slug))))) problems.push(`${guidePath(slug)}: ${e}`);
+  const guide = parseGuide(slug, read(guidePath(slug)));
+  for (const e of validateGuide(guide, new Set(Object.keys(FIGURES)))) problems.push(`${guidePath(slug)}: ${e}`);
 }
 
 const errors = problems.filter((p) => !p.includes('warning:'));

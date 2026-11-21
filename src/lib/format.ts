@@ -286,8 +286,29 @@ export function parseGuide(slug: string, md: string): Guide {
   return guide;
 }
 
-/** Problems with a guide, as human-readable strings. Empty = valid. */
-export function validateGuide(g: Guide): string[] {
+/** A piece of a guide body: Markdown, or a figure to render in its place. */
+export type GuidePart = string | { figure: string };
+
+/**
+ * Splits a guide body at its figure blocks. A figure is a fenced block with the language `figure`
+ * and one line, the figure's name (a key of FIGURES in figures.ts).
+ */
+export function splitFigures(md: string): GuidePart[] {
+  const parts: GuidePart[] = [];
+  let last = 0;
+  for (const m of md.matchAll(/^```figure[ \t]*\n[ \t]*([\w-]+)[ \t]*\n```[ \t]*$/gm)) {
+    const before = md.slice(last, m.index).trim();
+    if (before) parts.push(before);
+    parts.push({ figure: m[1] });
+    last = m.index + m[0].length;
+  }
+  const rest = md.slice(last).trim();
+  if (rest) parts.push(rest);
+  return parts;
+}
+
+/** Problems with a guide, as human-readable strings. Empty = valid. `figures` = the names that exist. */
+export function validateGuide(g: Guide, figures?: Set<string>): string[] {
   const errs: string[] = [];
   if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(g.slug)) errs.push('file name must be lowercase letters, digits and dashes');
   if (!g.title) errs.push('needs a "# Title" line');
@@ -305,6 +326,9 @@ export function validateGuide(g: Guide): string[] {
   // Links: in-page anchors must exist, everything else must be absolute.
   const bodies = [g.intro, ...g.chapters.flatMap((c) => [c.intro, ...c.sections.map((s) => s.body)])];
   for (const body of bodies) {
+    for (const part of splitFigures(body)) {
+      if (typeof part !== 'string' && figures && !figures.has(part.figure)) errs.push(`unknown figure "${part.figure}"`);
+    }
     for (const [, href] of withoutCode(body).matchAll(/\]\(([^)\s]+)\)/g)) {
       if (href.startsWith('#')) {
         if (!ids.has(href.slice(1))) errs.push(`link to "${href}" has no matching heading`);
